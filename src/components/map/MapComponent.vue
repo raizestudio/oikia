@@ -3,13 +3,15 @@ import { onMounted, ref, onBeforeUnmount } from 'vue'
 import maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 
-const mapContainer = ref(null)
-let map = null
+const mapContainer = ref<HTMLElement | null>(null)
+let map: maplibregl.Map | null = null
 
 onMounted(() => {
+  if (!mapContainer.value) return
+
   map = new maplibregl.Map({
     container: mapContainer.value,
-    style: 'https://demotiles.maplibre.org/style.json', // OSM-compatible style
+    style: 'https://tiles.stadiamaps.com/styles/alidade_smooth.json',
     center: [2.3522, 48.8566], // Paris [lng, lat]
     zoom: 12,
   })
@@ -32,7 +34,8 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .map-container {
-  height: 500px;
+  height: 100%;
   width: 100%;
+  border-radius: 0.5rem;
 }
 </style>

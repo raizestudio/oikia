@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 // Props
 const props = defineProps({
   title: String,
@@ -14,11 +13,14 @@ const props = defineProps({
         <p class="py-6">
           {{ props.description }}
         </p>
-        <input
-          type="text"
-          placeholder="Décrivez votre lieu idéal"
-          class="input input-bordered w-full max-w-xs text-center focus:outline-0 transition-border duration-300"
-        />
+        <label class="input focus-within:outline-0 transition-border duration-300 h-12 w-full">
+          <input
+            type="text"
+            placeholder="Décrivez votre lieu de résidence idéal... (par exemple, « Une banlieue tranquille avec de bonnes écoles et de bons parcs »)"
+            class="input input-bordered w-full focus:outline-0 p-0"
+          />
+          <button class="absolute right-1 btn btn-primary btn-sm z-10">Rechercher</button>
+        </label>
       </div>
     </div>
   </div>
