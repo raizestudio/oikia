@@ -46,15 +46,20 @@ jobs:
       #     npx playwright install --with-deps --force  
       #   working-directory: frontend
 
-      - name: Start the frontend application
-        run: pnpm dev &
+      # - name: Start the frontend application
+      #   run: pnpm dev &
+      #   working-directory: .
+      #   env:
+      #     NODE_ENV: test
+      - name: Build frontend
+        run: pnpm build
         working-directory: .
         env:
           NODE_ENV: test
       
-      - name: Wait for frontend to be ready
-        run: npx wait-on http://localhost:5173
-        # working-directory: 
+      # - name: Wait for frontend to be ready
+      #   run: npx wait-on http://localhost:5173
+      #   # working-directory: 
 
       - name: Run e2e Tests (Playwright)
         run: pnpm test:e2e
