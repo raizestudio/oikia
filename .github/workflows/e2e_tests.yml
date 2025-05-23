@@ -1,0 +1,61 @@
+name: E2e Tests
+
+on:
+  push:
+    branches:
+      - main
+      - preprod
+      - prod
+
+  pull_request:
+
+jobs:
+  test:
+    name: E2e Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+          cache-dependency-path: pnpm-lock.yaml
+      
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        run: /
+          pnpm install --frozen-lockfile
+          npx playwright install --with-deps --force
+        working-directory: .
+
+        
+      # - name: Install dependencies
+      #   run: |
+      #     npm ci --force
+      #     npx playwright install --with-deps --force  
+      #   working-directory: frontend
+
+      - name: Start the frontend application
+        run: pnpm dev &
+        working-directory: .
+        env:
+          NODE_ENV: test
+      
+      - name: Wait for frontend to be ready
+        run: npx wait-on http://localhost:3000
+        # working-directory: 
+
+      - name: Run e2e Tests (Playwright)
+        run: pnpm test:e2e
+        # working-directory: frontend

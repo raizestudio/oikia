@@ -1,4 +1,4 @@
-name: Frontend Unit Tests
+name: Unit Tests
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   test:
-    name: Frontend Unit Tests
+    name: Unit Tests
     runs-on: ubuntu-latest
 
     steps:
