@@ -8,7 +8,7 @@ const props = defineProps({
 <template>
   <div class="hero">
     <div class="hero-content text-center">
-      <div class="max-w-md">
+      <div class="max-w-lg">
         <h1 class="text-5xl font-bold">{{ props.title }}</h1>
         <p class="py-6">
           {{ props.description }}

@@ -4,13 +4,19 @@ import HeroComponent from '@/components/hero/HeroComponent.vue'
 import MapComponent from '@/components/map/MapComponent.vue'
 import CardComponent from '@/components/card/CardComponent.vue'
 import AvatarComponent from '@/components/avatar/AvatarComponent.vue'
+import FranceChartComponent from '@/components/charts/FranceChartComponent.vue'
 
 // Icons
 import IconMapPin from '@/components/icons/IconMapPin.vue'
 import IconBookOpen from '@/components/icons/IconBookOpen.vue'
 import IconShield from '@/components/icons/IconShield.vue'
+import { onMounted } from 'vue'
 
 const appName = import.meta.env.VITE_APP_NAME
+
+onMounted(() => {
+  document.title = `${appName} | Trouvez votre prochain chez vous`
+})
 </script>
 
 <template>
@@ -189,6 +195,13 @@ const appName = import.meta.env.VITE_APP_NAME
     </div>
   </div>
   <!-- FIFTH -->
+  <div class="flex py-10 px-20">
+    <FranceChartComponent />
+    <div>
+      qsd
+    </div>
+  </div>
+  <!-- SIXTH -->
   <div class="flex flex-col gap-8 px-10 py-32 bg-base-content">
     <div class="self-center">
       <h2 class="text-3xl font-bold text-base-300">Prêt à découvrir l'endroit idéal ?</h2>
@@ -203,6 +216,7 @@ const appName = import.meta.env.VITE_APP_NAME
       </button>
     </div>
   </div>
+  
   <!-- TODO: not sure about this one, map ok though  -->
   <!-- <div class="h-screen flex items-center">
     <div class="w-2/5 h-2/3">
