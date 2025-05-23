@@ -1,64 +1,43 @@
-# front
+# **OIKIA**
 
-This template should help get you started developing with Vue 3 in Vite.
+L'application qui simplifie la découverte de l'endroite idéal pour vivre.
 
-## Recommended IDE Setup
+## Tests
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+TODO:
 
-## Type Support for `.vue` Imports in TS
+## Déploiement
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+TODO:
 
-## Customize configuration
+## Installation
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+TODO:
 
-## Project Setup
+### Frontend
 
-```sh
+```bash
+# Install dependencies
 pnpm install
-```
 
-### Compile and Hot-Reload for Development
-
-```sh
+# Start App
 pnpm dev
 ```
 
-### Type-Check, Compile and Minify for Production
+## Contributing
 
-```sh
-pnpm build
-```
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/fooBar`)
+3. Commit your changes (`git commit -m 'Add some fooBar'`)
+4. Push to the branch (`git push origin feature/fooBar`)
+5. Open a Pull Request
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+## License
 
-```sh
-pnpm test:unit
-```
+Distributed under the MIT License. See `LICENSE` for more information.
 
-### Run End-to-End Tests with [Playwright](https://playwright.dev)
+## Contact
 
-```sh
-# Install browsers for the first run
-npx playwright install
+Joel P. - [raizetvision@gmail.com](mailto:raizetvision@gmail.com)
 
-# When testing on CI, must build the project first
-pnpm build
-
-# Runs the end-to-end tests
-pnpm test:e2e
-# Runs the tests only on Chromium
-pnpm test:e2e --project=chromium
-# Runs the tests of a specific file
-pnpm test:e2e tests/example.spec.ts
-# Runs the tests in debug mode
-pnpm test:e2e --debug
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-pnpm lint
-```
+Project Link: [https://github.com/raizestudio/oikia](https://github.com/raizestudio/oikia)

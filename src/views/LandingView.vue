@@ -198,7 +198,7 @@ onMounted(() => {
   <div class="flex py-10 px-20">
     <FranceChartComponent />
     <div>
-      qsd
+      <h2 class="text-3xl font-bold">Besoin d'informations détaillées sur une région, département, ville ou quartier ? </h2>
     </div>
   </div>
   <!-- SIXTH -->
@@ -217,6 +217,18 @@ onMounted(() => {
     </div>
   </div>
   
+  <!-- SEVENTH -->
+  <div>
+    <h2 class="text-3xl font-bold text-base-content">Quelques statistiques</h2>
+    <CardComponent>
+      <template #body>
+        <div class="flex flex-col gap-4">
+            <span>Pays</span>
+            <span>1</span>
+        </div>
+      </template>
+    </CardComponent>
+  </div>
   <!-- TODO: not sure about this one, map ok though  -->
   <!-- <div class="h-screen flex items-center">
     <div class="w-2/5 h-2/3">

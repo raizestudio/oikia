@@ -49,7 +49,7 @@ onMounted(async () => {
         itemStyle: {
           borderColor: '#fff',
           borderWidth: 1,
-          areaColor: '#fff',
+          areaColor: '#d1d1d1',
         },
         emphasis: {
           label: {
@@ -64,7 +64,7 @@ onMounted(async () => {
         },
         select: {
           itemStyle: {
-            areaColor: '#ef476f', // highlight color when selected
+            areaColor: '#5754E8', // highlight color when selected
             borderColor: '#222',
             borderWidth: 2,
           },
@@ -77,9 +77,9 @@ onMounted(async () => {
           {
             name: 'Bourgogne-Franche-Comté',
             value: 42,
-            itemStyle: {
-              areaColor: '#0362fc',
-            },
+            // itemStyle: {
+            //   areaColor: '#0362fc',
+            // },
           },
           { name: 'Centre-Val de Loire', value: 42 },
           { name: 'Île-de-France', value: 42 },
