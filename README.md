@@ -4,7 +4,7 @@ L'application qui simplifie la découverte de l'endroite idéal pour vivre.
 
 ## Tests
 
-TODO:
+[![Frontend Unit Tests](https://github.com/raizestudio/oikia/actions/workflows/unit_tests.yml/badge.svg)](https://github.com/raizestudio/oikia/actions/workflows/unit_tests.yml)
 
 ## Déploiement
 
