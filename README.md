@@ -9,7 +9,7 @@ L'application qui simplifie la découverte de l'endroite idéal pour vivre.
 
 ## Déploiement
 
-TODO:
+![Vercel Deploy](https://deploy-badge.vercel.app/vercel/oikia-orcin)
 
 ## Installation
 
