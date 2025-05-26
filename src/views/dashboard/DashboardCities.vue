@@ -16,16 +16,19 @@ onMounted(() => {
 </script>
 
 <template>
-  <DashboardHeaderComponent title="Countries" />
+  <DashboardHeaderComponent title="Cities" />
   <TableComponent
-    :data="citiesStore.data"
+    :data="citiesStore.sortedData"
     :fields="citiesStore.fields"
     :count="citiesStore.count"
     :page="citiesStore.page"
     :size="citiesStore.size"
-    :total-pages="citiesStore.totalPages"
+    :totalPages="citiesStore.totalPages"
+    :sortKey="citiesStore.sortKey"
+    :sortOrder="citiesStore.sortOrder"
     :prevPage="() => citiesStore.prevPage()"
     :nextPage="() => citiesStore.nextPage()"
     :setSize="(size: number) => citiesStore.setSize(size)"
+    :setSort="(fid) => citiesStore.setSort(fid)"
   />
 </template>

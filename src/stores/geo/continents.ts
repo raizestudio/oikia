@@ -13,18 +13,8 @@ import { usePagination } from '@/composables/usePagination'
 
 export const useContinentsStore = defineStore('continents', () => {
   const data = ref<IContinent[]>([])
-  const {
-    page,
-    size,
-    count,
-    totalPages,
-    nextPage,
-    prevPage,
-    setPage,
-    setSize,
-    setCount,
-    calculateTotalPages,
-  } = usePagination(1, 10)
+  const { page, size, count, totalPages, nextPage, prevPage, setPage, setSize, setCount } =
+    usePagination(1, 10)
 
   const fields = ref<ITableField[]>([
     { key: 'name', label: 'Name', type: 'text' },
@@ -37,7 +27,6 @@ export const useContinentsStore = defineStore('continents', () => {
       if (!response) return
       data.value = response.data
       count.value = response.count
-      calculateTotalPages()
     } catch (error) {
       console.error('Failed to fetch continents:', error)
     }
@@ -57,6 +46,5 @@ export const useContinentsStore = defineStore('continents', () => {
     setSize,
     nextPage,
     prevPage,
-    calculateTotalPages,
   }
 })

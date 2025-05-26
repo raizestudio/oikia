@@ -9,11 +9,12 @@ import type { IUser } from '@/interfaces/users/IUser'
 import type { ITableField } from '@/interfaces/table/ITable'
 
 // Composables
-import { usePagination } from "@/composables/usePagination"
+import { usePagination } from '@/composables/usePagination'
 
 export const useUsersStore = defineStore('users', () => {
   const data = ref<IUser[]>([])
-  const { page, size, count, totalPages, nextPage, prevPage, setPage, setSize, setCount, calculateTotalPages } = usePagination(1, 10)
+  const { page, size, count, totalPages, nextPage, prevPage, setPage, setSize, setCount } =
+    usePagination(1, 10)
 
   const fields = ref<ITableField[]>([
     { key: 'id', label: 'Id', type: 'text' },
@@ -36,7 +37,6 @@ export const useUsersStore = defineStore('users', () => {
       if (!response) return
       data.value = response.data
       count.value = response.count
-      calculateTotalPages()
     } catch (error) {
       console.error('Failed to fetch continents:', error)
     }
@@ -56,6 +56,5 @@ export const useUsersStore = defineStore('users', () => {
     setSize,
     nextPage,
     prevPage,
-    calculateTotalPages,
   }
 })

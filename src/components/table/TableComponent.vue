@@ -8,7 +8,7 @@ import TableBoolComponent from '@/components/table/cell/TableBoolComponent.vue'
 
 // Icons
 import IconSortAscending from '@/components/icons/IconSortAscending.vue'
-// import IconSortDescending from '@/components/icons/IconSortDescending.vue'
+import IconSortDescending from '@/components/icons/IconSortDescending.vue'
 
 // Interfaces
 import type { ITableField, TableData } from '@/interfaces/table/ITable'
@@ -31,9 +31,12 @@ const props = defineProps<{
   page: number
   size: number
   totalPages: number
+  sortKey: string | null
+  sortOrder?: 'asc' | 'desc'
   prevPage: () => void
   nextPage: () => void
   setSize: (size: number) => void
+  setSort: (fid: keyof TableData) => void
 }>()
 </script>
 
@@ -65,7 +68,17 @@ const props = defineProps<{
             >
               <div class="flex justify-between items-center">
                 <span>{{ option.label }}</span>
-                <IconSortAscending class="w-6 h-6" />
+                <div
+                  v-if="fields[index].isSortable"
+                  class="cursor-pointer"
+                  @click="() => props.setSort(option.key as keyof TableData)"
+                >
+                  <IconSortAscending
+                    v-if="props.sortKey === option.key && props.sortOrder === 'desc'"
+                    class="w-6 h-6"
+                  />
+                  <IconSortDescending v-else class="w-6 h-6" />
+                </div>
               </div>
             </th>
             <th>Actions</th>

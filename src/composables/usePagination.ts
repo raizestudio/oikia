@@ -35,15 +35,6 @@ export function usePagination(defaultPage = 1, defaultSize = 10) {
     if (newSize > 0) {
       size.value = newSize
       page.value = 1 // Reset to first page when size changes
-      calculateTotalPages()
-    }
-  }
-
-  function calculateTotalPages() {
-    if (count.value > 0 && size.value > 0) {
-      totalPages.value = Math.ceil(count.value / size.value)
-    } else {
-      totalPages.value = 0
     }
   }
 
@@ -57,6 +48,5 @@ export function usePagination(defaultPage = 1, defaultSize = 10) {
     prevPage,
     setPage,
     setSize,
-    calculateTotalPages
   }
 }

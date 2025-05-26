@@ -12,4 +12,5 @@ export interface ITableField {
   key: keyof IUser | keyof IContinent | keyof ICountry | keyof ICity
   label: string
   type?: 'text' | 'boolean' | 'date'
+  isSortable?: boolean
 }

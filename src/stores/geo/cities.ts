@@ -10,29 +10,26 @@ import type { ITableField } from '@/interfaces/table/ITable'
 
 // Composables
 import { usePagination } from '@/composables/usePagination'
+import { useSorting } from '@/composables/useSorting'
 
 export const useCitiesStore = defineStore('cities', () => {
   const data = ref<ICity[]>([])
-  const {
-    page,
-    size,
-    count,
-    totalPages,
-    nextPage,
-    prevPage,
-    setPage,
-    setSize,
-    setCount,
-    calculateTotalPages,
-  } = usePagination(1, 10)
+  const { page, size, count, totalPages, nextPage, prevPage, setPage, setSize, setCount } =
+    usePagination(1, 10)
+
+  const { sortedData, sortKey, sortOrder, setSort, clearSort } = useSorting<ICity>(
+    data,
+    'id',
+    'asc',
+  )
 
   const fields = ref<ITableField[]>([
-    { key: 'id', label: 'Id', type: 'text' },
-    { key: 'name', label: 'name', type: 'text' },
-    { key: 'code_postal', label: 'Code postal', type: 'text' },
-    { key: 'code_insee', label: 'Code insee', type: 'text' },
-    { key: 'administrative_level_one', label: 'Adm level 1', type: 'text' },
-    { key: 'administrative_level_two', label: 'Adm level 2', type: 'text' },
+    { key: 'id', label: 'Id', type: 'text', isSortable: true },
+    { key: 'name', label: 'name', type: 'text', isSortable: true },
+    { key: 'code_postal', label: 'Code postal', type: 'text', isSortable: true },
+    { key: 'code_insee', label: 'Code insee', type: 'text', isSortable: true },
+    { key: 'administrative_level_one', label: 'Adm level 1', type: 'text', isSortable: true },
+    { key: 'administrative_level_two', label: 'Adm level 2', type: 'text', isSortable: true },
   ])
 
   async function load() {
@@ -41,7 +38,6 @@ export const useCitiesStore = defineStore('cities', () => {
       if (!response) return
       data.value = response.data
       count.value = response.count
-      calculateTotalPages()
     } catch (error) {
       console.error('Failed to fetch continents:', error)
     }
@@ -61,6 +57,10 @@ export const useCitiesStore = defineStore('cities', () => {
     setSize,
     nextPage,
     prevPage,
-    calculateTotalPages,
+    sortedData,
+    sortKey,
+    sortOrder,
+    setSort,
+    clearSort,
   }
 })
