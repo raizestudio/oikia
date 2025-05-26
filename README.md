@@ -1,6 +1,6 @@
 # **OIKIA**
 
-L'application qui simplifie la découverte de l'endroite idéal pour vivre.
+Frontend for the OIKIA application, which simplifies the discovery of the ideal place to live.
 
 ## Tests
 

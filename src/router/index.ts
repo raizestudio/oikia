@@ -2,6 +2,13 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 // Components
 import LandingView from '@/views/LandingView.vue'
+import DashboardView from '@/views/dashboard/DashboardView.vue'
+import DashboardUsers from '@/views/dashboard/DashboardUsers.vue'
+import DashboardContinents from '@/views/dashboard/DashboardContinents.vue'
+import DashboardCountries from '@/views/dashboard/DashboardCountries.vue'
+import DashboardCities from '@/views/dashboard/DashboardCities.vue'
+import NotFoundView from '@/views/errors/NotFoundView.vue'
+import InternalErrorView from '@/views/errors/InternalErrorView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -11,14 +18,64 @@ const router = createRouter({
       name: 'home',
       component: LandingView,
     },
+    // Dashboard
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue'),
+      path: '/dashboard',
+      name: 'dashboard',
+      component: DashboardView,
+      meta: {
+        layout: 'dashboard',
+      },
     },
+    {
+      path: '/dashboard/data/users',
+      name: 'dashboard-users',
+      component: DashboardUsers,
+      meta: {
+        layout: 'dashboard',
+      },
+    },
+    {
+      path: '/dashboard/data/geo/continents',
+      name: 'dashboard-continents',
+      component: DashboardContinents,
+      meta: {
+        layout: 'dashboard',
+      },
+    },
+    {
+      path: '/dashboard/data/geo/countries',
+      name: 'dashboard-countries',
+      component: DashboardCountries,
+      meta: {
+        layout: 'dashboard',
+      },
+    },
+    {
+      path: '/dashboard/data/geo/cities',
+      name: 'dashboard-cities',
+      component: DashboardCities,
+      meta: {
+        layout: 'dashboard',
+      },
+    },
+    // Errors
+    { path: '/500', name: 'InternalError', component: InternalErrorView },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'NotFound',
+      component: NotFoundView,
+      meta: { layout: 'error' },
+    },
+
+    // {
+    //   path: '/about',
+    //   name: 'about',
+    // route level code-splitting
+    // this generates a separate chunk (About.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    // component: () => import('../views/AboutView.vue'),
+    // },
   ],
 })
 

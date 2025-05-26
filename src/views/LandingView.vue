@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // Components
 import HeroComponent from '@/components/hero/HeroComponent.vue'
-import MapComponent from '@/components/map/MapComponent.vue'
+// import MapComponent from '@/components/map/MapComponent.vue'
 import CardComponent from '@/components/card/CardComponent.vue'
 import AvatarComponent from '@/components/avatar/AvatarComponent.vue'
 import FranceChartComponent from '@/components/charts/FranceChartComponent.vue'
@@ -198,7 +198,9 @@ onMounted(() => {
   <div class="flex py-10 px-20">
     <FranceChartComponent />
     <div>
-      <h2 class="text-3xl font-bold">Besoin d'informations détaillées sur une région, département, ville ou quartier ? </h2>
+      <h2 class="text-3xl font-bold">
+        Besoin d'informations détaillées sur une région, département, ville ou quartier ?
+      </h2>
     </div>
   </div>
   <!-- SIXTH -->
@@ -207,8 +209,7 @@ onMounted(() => {
       <h2 class="text-3xl font-bold text-base-300">Prêt à découvrir l'endroit idéal ?</h2>
     </div>
     <div class="flex flex-col gap-4 items-center">
-      <span
-        class="text-base-100 font-semibold"
+      <span class="text-base-100 font-semibold"
         >Laissez notre IA vous aider à découvrir l'endroit idéal pour votre prochain chapitre.</span
       >
       <button class="btn btn-base-content btn-lg">
@@ -216,15 +217,15 @@ onMounted(() => {
       </button>
     </div>
   </div>
-  
+
   <!-- SEVENTH -->
   <div>
     <h2 class="text-3xl font-bold text-base-content">Quelques statistiques</h2>
     <CardComponent>
       <template #body>
         <div class="flex flex-col gap-4">
-            <span>Pays</span>
-            <span>1</span>
+          <span>Pays</span>
+          <span>1</span>
         </div>
       </template>
     </CardComponent>

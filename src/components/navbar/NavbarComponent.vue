@@ -6,20 +6,18 @@ import NavbarTitleComponent from '@/components/navbar/NavbarTitleComponent.vue'
 import NavbarActionsComponent from '@/components/navbar/NavbarActionsComponent.vue'
 
 // Icons
-import IconList from '@/components/icons/IconList.vue'
-import IconProfile from '@/components/icons/IconProfile.vue'
-import IconChat from '@/components/icons/IconChat.vue'
+// import IconList from '@/components/icons/IconList.vue'
+// import IconProfile from '@/components/icons/IconProfile.vue'
+// import IconChat from '@/components/icons/IconChat.vue'
 
 // Stores
-import { useCoreStore } from '@/stores/core'
+// import { useCoreStore } from '@/stores/core'
 // import { useUsersStore } from '@/stores/users'
 // import { useChatStore } from '@/stores/chat'
 
-const coreStore = useCoreStore()
+// const coreStore = useCoreStore()
 // const usersStore = useUsersStore()
 // const chatStore = useChatStore()
-
-
 </script>
 
 <template>

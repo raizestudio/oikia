@@ -5,6 +5,8 @@ import { useRoute } from 'vue-router'
 // Layouts
 import BaseLayout from '@/layouts/BaseLayout.vue'
 import AdminLayout from '@/layouts/AdminLayout.vue'
+import DashboardLayout from '@/layouts/DashboardLayout.vue'
+import ErrorLayout from '@/layouts/ErrorLayout.vue'
 
 // Stores
 import { useThemeStore } from '@/stores/theme'
@@ -31,6 +33,8 @@ watch(
 // Layout mapping
 const layouts = {
   admin: AdminLayout,
+  dashboard: DashboardLayout,
+  error: ErrorLayout,
 }
 
 // Layout component
