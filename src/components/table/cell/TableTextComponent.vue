@@ -6,6 +6,6 @@ const props = defineProps<{
 
 <template>
   <div class="flex justify-center">
-    <span>{{ props.value }}</span>
+    <span>{{ props.value ? props.value : '-' }}</span>
   </div>
 </template>

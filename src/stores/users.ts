@@ -12,6 +12,7 @@ import type { ITableField } from '@/interfaces/table/ITable'
 import { usePagination } from '@/composables/usePagination'
 
 export const useUsersStore = defineStore('users', () => {
+  const isLoading = ref(false)
   const data = ref<IUser[]>([])
   const { page, size, count, totalPages, nextPage, prevPage, setPage, setSize, setCount } =
     usePagination(1, 10)
@@ -31,6 +32,10 @@ export const useUsersStore = defineStore('users', () => {
     { key: 'is_superuser', label: 'Is Superuser', type: 'boolean' },
   ])
 
+  function toggleLoading() {
+    isLoading.value = !isLoading.value
+  }
+
   async function load() {
     try {
       const response = await fetchUsers({ page: page.value, size: size.value })
@@ -45,12 +50,14 @@ export const useUsersStore = defineStore('users', () => {
   watch([page, size], load)
 
   return {
+    isLoading,
     data,
     count,
     page,
     totalPages,
     size,
     fields,
+    toggleLoading,
     load,
     setPage,
     setSize,

@@ -10,9 +10,11 @@ import type { ITableField } from '@/interfaces/table/ITable'
 
 // Composables
 import { usePagination } from '@/composables/usePagination'
-import { useSorting } from '@/composables/useSorting'
+import { useSorting } from '@/composables/table/useSorting'
+import { useSelection } from '@/composables/table/useSelection'
 
 export const useCitiesStore = defineStore('cities', () => {
+  const isLoading = ref(false)
   const data = ref<ICity[]>([])
   const { page, size, count, totalPages, nextPage, prevPage, setPage, setSize, setCount } =
     usePagination(1, 10)
@@ -23,6 +25,19 @@ export const useCitiesStore = defineStore('cities', () => {
     'asc',
   )
 
+  const {
+    selectedIds,
+    selectItem,
+    selectedItems,
+    toggleSelection,
+    isSelected,
+    selectAll,
+    clearSelection,
+    toggleSelectAll,
+    countSelected,
+    selectionConstructedMessage,
+  } = useSelection<ICity>(data, 'id')
+
   const fields = ref<ITableField[]>([
     { key: 'id', label: 'Id', type: 'text', isSortable: true },
     { key: 'name', label: 'name', type: 'text', isSortable: true },
@@ -32,7 +47,12 @@ export const useCitiesStore = defineStore('cities', () => {
     { key: 'administrative_level_two', label: 'Adm level 2', type: 'text', isSortable: true },
   ])
 
+  function toggleLoading() {
+    isLoading.value = !isLoading.value
+  }
+
   async function load() {
+    toggleLoading()
     try {
       const response = await fetchCities({ page: page.value, size: size.value })
       if (!response) return
@@ -40,18 +60,22 @@ export const useCitiesStore = defineStore('cities', () => {
       count.value = response.count
     } catch (error) {
       console.error('Failed to fetch continents:', error)
+    } finally {
+      toggleLoading()
     }
   }
 
   watch([page, size], load)
 
   return {
+    isLoading,
     data,
     count,
     page,
     totalPages,
     size,
     fields,
+    toggleLoading,
     load,
     setPage,
     setSize,
@@ -62,5 +86,15 @@ export const useCitiesStore = defineStore('cities', () => {
     sortOrder,
     setSort,
     clearSort,
+    selectedIds,
+    selectItem,
+    selectedItems,
+    toggleSelection,
+    isSelected,
+    selectAll,
+    clearSelection,
+    toggleSelectAll,
+    countSelected,
+    selectionConstructedMessage,
   }
 })

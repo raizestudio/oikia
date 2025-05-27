@@ -38,8 +38,13 @@ function buildMenuTree(flat: IMenu[]) {
 export const useCoreStore = defineStore('core', () => {
   const isGlobalLoading = ref(false)
   const isLoading = ref(true)
+  const isSidebarOpen = ref(false)
   const menus = ref<IMenu[]>([])
   const menuTree = ref<(IMenu & { children: IMenuWithChildren[] })[]>([])
+
+  const toggleSidebar = () => {
+    isSidebarOpen.value = !isSidebarOpen.value
+  }
 
   function setMenus() {
     fetchMenus().then((data) => {
@@ -55,8 +60,10 @@ export const useCoreStore = defineStore('core', () => {
   return {
     isGlobalLoading,
     isLoading,
+    isSidebarOpen,
     menus,
     menuTree,
+    toggleSidebar,
     setMenus,
     setLoading,
   }

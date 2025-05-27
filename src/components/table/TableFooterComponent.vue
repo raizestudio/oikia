@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
+// Icons
+import IconCarret from '@/components/icons/IconCarret.vue'
+
 const props = defineProps<{
   page: number
   count: number
@@ -24,7 +27,7 @@ const currentlyDisplaying = computed(() => {
       <div class="flex gap-2 p-1 text-nowrap">
         <span>Per page</span>
         <select
-          class="select select-xs w-min"
+          class="select select-xs w-min focus:outline-0"
           @change.prevent="
             (e) => {
               if (e.target) props.setSize(Number((e.target as HTMLSelectElement).value))
@@ -46,8 +49,16 @@ const currentlyDisplaying = computed(() => {
       <span>{{ currentlyDisplaying }}</span>
     </div>
     <div class="flex gap-2">
-      <button class="btn" @click="() => props.prevPage()" :disabled="props.page <= 1">Prev</button>
-      <button class="btn" @click="() => props.nextPage()" :disabled="props.page === props.totalPages">Next</button>
+      <button class="btn" @click="() => props.prevPage()" :disabled="props.page <= 1">
+        <IconCarret class="w-4 h-4 rotate-180" />
+      </button>
+      <button
+        class="btn"
+        @click="() => props.nextPage()"
+        :disabled="props.page === props.totalPages"
+      >
+        <IconCarret class="w-4 h-4" />
+      </button>
     </div>
   </div>
 </template>

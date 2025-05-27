@@ -1,47 +1,32 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
-// Interfaces
-import type { ITableField, TableData } from '@/interfaces/table/ITable'
-
 export const useTableStore = defineStore('table', () => {
-  const data = ref<TableData[]>([])
-  const fields = ref<ITableField[]>([])
-  const page = ref(1)
-  const size = ref(2)
+  const isLoading = ref(false)
+  const hoveredRowIndex = ref<number | null>(null)
+  const hoveredRowKey = ref<string | null>(null)
 
-  function setData(newData: TableData[]) {
-    data.value = newData
+  const toggleLoading = () => {
+    isLoading.value = !isLoading.value
   }
 
-  function setFields(newFields: ITableField[]) {
-    fields.value = newFields
-  }
+  const handleRowHover = (index: number, key: string) => {
+    hoveredRowIndex.value = index
+    hoveredRowKey.value = key || null
 
-  function setPage(newPage: number) {
-    if (newPage > 0) {
-      page.value = newPage
-    } else {
-      page.value = 1
-    }
+    console.log(`Row hovered: index=${index}, key=${key}`)
   }
-
-  function setSize(newSize: number) {
-    if (newSize > 0) {
-      size.value = newSize
-    } else {
-      size.value = 10
-    }
+  const handleRowLeave = () => {
+    hoveredRowIndex.value = null
+    hoveredRowKey.value = null
   }
 
   return {
-    data,
-    fields,
-    page,
-    size,
-    setData,
-    setFields,
-    setPage,
-    setSize,
+    isLoading,
+    hoveredRowIndex,
+    hoveredRowKey,
+    toggleLoading,
+    handleRowHover,
+    handleRowLeave,
   }
 })

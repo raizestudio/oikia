@@ -12,11 +12,11 @@ import IconSun from '@/components/icons/IconSun.vue'
 import IconMoon from '@/components/icons/IconMoon.vue'
 
 // Stores
-// import { useCoreStore } from '@/stores/core'
+import { useCoreStore } from '@/stores/core'
 // import { useAuthStore } from '@/stores/auth'
 import { useThemeStore } from '@/stores/theme'
 
-// const coreStore = useCoreStore()
+const coreStore = useCoreStore()
 // const authStore = useAuthStore()
 const themeStore = useThemeStore()
 
@@ -27,7 +27,10 @@ const appName = import.meta.env.VITE_APP_NAME
 </script>
 
 <template>
-  <div class="flex flex-col gap-4 px-2 py-4 min-w-72 max-w-72 bg-base-200 border-r border-base-300">
+  <div
+    v-if="coreStore.isSidebarOpen"
+    class="flex flex-col gap-4 px-2 py-4 min-w-72 max-w-72 bg-base-200 border-r border-base-300"
+  >
     <div class="flex justify-center py-2">
       <h2 class="text-4xl font-black">{{ appName }}</h2>
     </div>
