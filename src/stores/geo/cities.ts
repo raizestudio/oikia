@@ -79,6 +79,7 @@ export const useCitiesStore = defineStore('cities', () => {
     load,
     setPage,
     setSize,
+    setCount,
     nextPage,
     prevPage,
     sortedData,

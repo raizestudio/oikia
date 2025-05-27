@@ -44,6 +44,16 @@ export const useCoreStore = defineStore('core', () => {
 
   const toggleSidebar = () => {
     isSidebarOpen.value = !isSidebarOpen.value
+    localStorage.setItem('isSidebarOpen', isSidebarOpen.value.toString())
+  }
+
+  const checkSidebarLocalStorage = () => {
+    const storedValue = localStorage.getItem('isSidebarOpen')
+    if (storedValue !== null) {
+      isSidebarOpen.value = storedValue === 'true'
+    } else {
+      isSidebarOpen.value = true // Default to open if not set
+    }
   }
 
   function setMenus() {
@@ -64,6 +74,7 @@ export const useCoreStore = defineStore('core', () => {
     menus,
     menuTree,
     toggleSidebar,
+    checkSidebarLocalStorage,
     setMenus,
     setLoading,
   }

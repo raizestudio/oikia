@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 // Icons
 import IconCarret from '@/components/icons/IconCarret.vue'
+
+const isEditingPage = ref(false)
 
 const props = defineProps<{
   page: number
@@ -12,6 +14,7 @@ const props = defineProps<{
   prevPage: () => void
   nextPage: () => void
   setSize: (size: number) => void
+  setPage: (page: number) => void
 }>()
 
 const currentlyDisplaying = computed(() => {
@@ -19,11 +22,48 @@ const currentlyDisplaying = computed(() => {
   const to = Math.min(props.page * props.size, props.count)
   return `Displaying ${from} - ${to} of ${props.count}`
 })
+
+const toggleIsEditingPage = () => {
+  isEditingPage.value = !isEditingPage.value
+  if (isEditingPage.value) {
+    setTimeout(() => {
+      const input = document.querySelector('input[type="text"]') as HTMLInputElement
+      input?.focus()
+      input?.select()
+    }, 0)
+  }
+}
 </script>
 
 <template>
   <div class="flex items-center gap-4 w-full">
     <div class="flex gap-1">
+      <div class="flex gap-2 p-1 text-nowrap">
+        <span class="text-sm">Page</span>
+        <div v-if="isEditingPage" class="border border-base-content/25 rounded px-1 py-0">
+          <input
+            type="text"
+            class="input input-xs focus:outline-0 p-0 w-8 border-none outline-none rounded-none focus:shadow-none text-center size-4"
+            :value="props.page"
+            @input.prevent="
+              (e) => {
+                const newPage = Number((e.target as HTMLInputElement).value)
+                if (!isNaN(newPage) && newPage > 0 && newPage <= props.totalPages) {
+                  props.setPage(newPage)
+                }
+              }
+            "
+            @blur="toggleIsEditingPage"
+          />
+        </div>
+        <div
+          v-else
+          class="border border-base-content/25 rounded px-4 py-0"
+          @click="toggleIsEditingPage"
+        >
+          <span class="text-xs">{{ props.page }}</span>
+        </div>
+      </div>
       <div class="flex gap-2 p-1 text-nowrap">
         <span>Per page</span>
         <select

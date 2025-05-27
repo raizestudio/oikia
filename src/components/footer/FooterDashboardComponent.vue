@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { onMounted, computed, ref } from 'vue'
+import packageJson from '@/../package.json'
+
 // Icons
 import IconSignalFull from '@/components/icons/IconSignalFull.vue'
 import IconDatabase from '@/components/icons/IconDatabase.vue'
 import IconQuestionMark from '@/components/icons/IconQuestionMark.vue'
 
+const appVersion = packageJson.version
 const time = ref<Date | null>(null)
 
 const clock = computed(() => {
@@ -54,10 +57,14 @@ onMounted(() => {
         <div class="w-2.5 h-2.5 bg-success rounded-xs"></div>
       </div>
     </div>
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-1">
       <IconSignalFull class="w-4.5 h-4.5 text-success" />
+      <div class="w-1 h-1 bg-base-content/25"></div>
       <span class="text-xs font-bold text-base-content/50">Joel PINHO</span>
+      <div class="w-1 h-1 bg-base-content/25"></div>
       <span class="text-xs font-bold text-base-content/50">{{ clock }}</span>
+      <div class="w-1 h-1 bg-base-content/25"></div>
+      <span class="text-xs font-bold text-base-content/50">v{{ appVersion }}</span>
     </div>
   </div>
 </template>

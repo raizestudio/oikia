@@ -3,7 +3,7 @@
 import IconBell from '@/components/icons/IconBell.vue'
 import IconSliders from '@/components/icons/IconSliders.vue'
 import IconMagnifyingGlass from '@/components/icons/IconMagnifyingGlass.vue'
-import IconBurger from '@/components/icons/IconBurger.vue'
+import IconList from '@/components/icons/IconList.vue'
 import IconFlask from '@/components/icons/IconFlask.vue'
 import IconEyes from '@/components/icons/IconEyes.vue'
 
@@ -20,10 +20,7 @@ const isDemo = import.meta.env.VITE_IS_DEMO === 'true'
   <div class="navbar px-6 min-h-[56px] bg-base-200 border-b border-base-300">
     <!-- LEFT ACTIONS ? -->
     <div class="flex items-center gap-2">
-      <IconBurger
-        class="w-6 h-6 fill-base-content cursor-pointer"
-        @click="coreStore.toggleSidebar"
-      />
+      <IconList class="w-6 h-6 fill-base-content cursor-pointer" @click="coreStore.toggleSidebar" />
       <div
         v-if="env === 'dev' && !isDemo"
         class="tooltip tooltip-bottom"

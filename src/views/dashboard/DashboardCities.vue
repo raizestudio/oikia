@@ -35,6 +35,7 @@ onMounted(() => {
     :prevPage="() => citiesStore.prevPage()"
     :nextPage="() => citiesStore.nextPage()"
     :setSize="(size: number) => citiesStore.setSize(size)"
+    :setPage="(page: number) => citiesStore.setPage(page)"
     :setSort="(fid) => citiesStore.setSort(fid)"
     :selectItem="(item) => citiesStore.selectItem(item as ICity)"
     :selectAll="() => citiesStore.selectAll()"

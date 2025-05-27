@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { onMounted } from 'vue'
+
 // Components
 // import SupportComponent from '@/components/support/SupportComponent.vue'
 // import TicketBugComponent from '@/components/support/TicketBugComponent.vue'
@@ -24,6 +26,10 @@ const themeStore = useThemeStore()
 // coreStore.setMenus()
 
 const appName = import.meta.env.VITE_APP_NAME
+
+onMounted(() => {
+  coreStore.checkSidebarLocalStorage()
+})
 </script>
 
 <template>

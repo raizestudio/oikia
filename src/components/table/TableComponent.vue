@@ -14,6 +14,7 @@ import IconPencil from '@/components/icons/IconPencil.vue'
 import IconTrash from '@/components/icons/IconTrash.vue'
 import IconEye from '@/components/icons/IconEye.vue'
 import IconArchive from '@/components/icons/IconArchive.vue'
+import IconFunnel from '@/components/icons/IconFunnel.vue'
 
 // Interfaces
 import type { ITableField, TableData } from '@/interfaces/table/ITable'
@@ -46,6 +47,7 @@ const props = defineProps<{
   prevPage: () => void
   nextPage: () => void
   setSize: (size: number) => void
+  setPage: (page: number) => void
   setSort: (fid: keyof TableData) => void
   selectItem?: (item: TableData) => void
   selectAll?: () => void
@@ -61,9 +63,14 @@ const props = defineProps<{
       :selectionConstructedMessage="props.selectionConstructedMessage"
       :isLoading="props.isLoading"
       :has-selected-items="!!props.countSelected"
+      :fields="props.fields"
     />
     <div
-      :class="`overflow-x-auto overflow-y-auto max-w-[calc(100vw-${coreStore.isSidebarOpen ? '352px' : ''})] max-h-[calc(100vh-316px)]`"
+      :class="`overflow-x-auto overflow-y-auto`"
+      :style="{
+        maxWidth: `calc(100vw - ${coreStore.isSidebarOpen ? '352px' : '64px'})`,
+        maxHeight: 'calc(100vh - 316px)',
+      }"
     >
       <table class="table table-pin-rows border-separate border-spacing-0">
         <!-- head -->
@@ -77,25 +84,28 @@ const props = defineProps<{
             <th
               v-for="(option, index) in props.fields"
               :key="index"
-              class="border border-base-content/10 hover:bg-base-300"
+              class="border-t border-b border-l border-base-content/10 hover:bg-base-300"
               @mouseenter="tableStore.handleRowHover(index, option.key)"
             >
               <div class="flex justify-between items-center">
-                <span>{{ option.label }}</span>
-                <div
-                  v-if="fields[index].isSortable"
-                  class="cursor-pointer"
-                  @click="() => props.setSort(option.key as keyof TableData)"
-                >
-                  <IconSortAscending
-                    v-if="props.sortKey === option.key && props.sortOrder === 'desc'"
-                    class="w-6 h-6"
-                  />
-                  <IconSortDescending v-else class="w-6 h-6" />
+                <span class="text-base-content">{{ option.label }}</span>
+                <div class="flex items-center gap-0.5">
+                  <div
+                    v-if="fields[index].isSortable"
+                    class="cursor-pointer"
+                    @click="() => props.setSort(option.key as keyof TableData)"
+                  >
+                    <IconSortAscending
+                      v-if="props.sortKey === option.key && props.sortOrder === 'desc'"
+                      class="w-6 h-6"
+                    />
+                    <IconSortDescending v-else class="w-6 h-6" />
+                  </div>
+                  <IconFunnel class="w-5 h-5" />
                 </div>
               </div>
             </th>
-            <th class="border-b border-base-content/10">Actions</th>
+            <th class="border-b border-l border-base-content/10">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -119,7 +129,7 @@ const props = defineProps<{
             <td
               v-for="(field, fieldIndex) in props.fields"
               :key="fieldIndex"
-              :class="`border border-base-content/10 hover:bg-base-300 ${
+              :class="`border-b border-l border-base-content/10 hover:bg-base-300 ${
                 tableStore.hoveredRowKey === field.key ? 'bg-base-300/20' : ''
               }`"
               @mouseenter="tableStore.handleRowHover(index, field.key)"
@@ -133,19 +143,21 @@ const props = defineProps<{
                 {{ item[field.key as keyof typeof item] }}
               </div>
             </td>
-            <td class="flex gap-2 border-b border-base-content/10">
-              <button class="btn btn-sm btn-primary">
-                <IconEye class="w-4 h-4" />
-              </button>
-              <button class="btn btn-sm btn-primary">
-                <IconPencil class="w-4 h-4" />
-              </button>
-              <button class="btn btn-sm btn-warning">
-                <IconArchive class="w-4 h-4 text-white" />
-              </button>
-              <button class="btn btn-sm btn-error">
-                <IconTrash class="w-4 h-4 text-white" />
-              </button>
+            <td class="border-b border-l border-base-content/10">
+              <div class="flex gap-2">
+                <button class="btn btn-xs btn-primary">
+                  <IconEye class="w-4 h-4" />
+                </button>
+                <button class="btn btn-xs btn-primary">
+                  <IconPencil class="w-4 h-4" />
+                </button>
+                <button class="btn btn-xs btn-warning">
+                  <IconArchive class="w-4 h-4 text-white" />
+                </button>
+                <button class="btn btn-xs btn-error">
+                  <IconTrash class="w-4 h-4 text-white" />
+                </button>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -159,6 +171,7 @@ const props = defineProps<{
       :prevPage="props.prevPage"
       :nextPage="props.nextPage"
       :setSize="(size: number) => props.setSize(size)"
+      :setPage="(page: number) => props.setPage(page)"
     />
   </div>
 </template>
