@@ -2,12 +2,16 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useTableStore = defineStore('table', () => {
-  const isLoading = ref(false)
+  const isLoading = ref(true)
   const hoveredRowIndex = ref<number | null>(null)
   const hoveredRowKey = ref<string | null>(null)
 
   const toggleLoading = () => {
     isLoading.value = !isLoading.value
+  }
+
+  const setLoading = (loading: boolean) => {
+    isLoading.value = loading
   }
 
   const handleRowHover = (index: number, key: string) => {
@@ -26,6 +30,7 @@ export const useTableStore = defineStore('table', () => {
     hoveredRowIndex,
     hoveredRowKey,
     toggleLoading,
+    setLoading,
     handleRowHover,
     handleRowLeave,
   }

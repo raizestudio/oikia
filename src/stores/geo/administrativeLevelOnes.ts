@@ -2,10 +2,10 @@ import { defineStore } from 'pinia'
 import { ref, watch } from 'vue'
 
 // Api
-import { fetchUsers } from '@/api/users/users'
+import { fetchAdministrativeLevelOnes } from '@/api/geo/administrativeLevelOnes'
 
 // Interfaces
-import type { IUser } from '@/interfaces/users/IUser'
+import type { IAdministrativeLevelOne } from '@/interfaces/geo/IAdministrativeLevelOne'
 import type { ITableField } from '@/interfaces/table/ITable'
 
 // Composables
@@ -13,17 +13,14 @@ import { usePagination } from '@/composables/usePagination'
 import { useSorting } from '@/composables/table/useSorting'
 import { useSelection } from '@/composables/table/useSelection'
 
-export const useUsersStore = defineStore('users', () => {
+export const useAdministrativeLevelOnesStore = defineStore('administrativeLevelOnesStore', () => {
   const isLoading = ref(false)
-  const data = ref<IUser[]>([])
+  const data = ref<IAdministrativeLevelOne[]>([])
   const { page, size, count, totalPages, nextPage, prevPage, setPage, setSize, setCount } =
     usePagination(1, 10)
 
-  const { sortedData, sortKey, sortOrder, setSort, clearSort } = useSorting<IUser>(
-    data,
-    'id',
-    'asc',
-  )
+  const { sortedData, sortKey, sortOrder, setSort, clearSort } =
+    useSorting<IAdministrativeLevelOne>(data, 'code', 'asc')
 
   const {
     selectedIds,
@@ -36,21 +33,12 @@ export const useUsersStore = defineStore('users', () => {
     toggleSelectAll,
     countSelected,
     selectionConstructedMessage,
-  } = useSelection<IUser>(data, 'id')
+  } = useSelection<IAdministrativeLevelOne>(data, 'code')
 
   const fields = ref<ITableField[]>([
-    { key: 'id', label: 'Id', type: 'text', isSortable: true, isPrimary: true },
-    { key: 'avatar', label: 'User', type: 'avatar', isSortable: true, labelKey: 'username' },
-    // { key: 'username', label: 'Username', type: 'text', isSortable: true },
-    { key: 'first_name', label: 'First Name', type: 'text', isSortable: true },
-    { key: 'last_name', label: 'Last Name', type: 'text', isSortable: true },
-    { key: 'email', label: 'Email', type: 'email', isSortable: true },
-    { key: 'full_phone_number', label: 'Phone number', type: 'phone', isSortable: true },
-    { key: 'created_at', label: 'Created At', type: 'date', isSortable: true },
-    { key: 'updated_at', label: 'Updated At', type: 'date', isSortable: true },
-    { key: 'is_active', label: 'Is Active', type: 'boolean', isSortable: true },
-    { key: 'is_admin', label: 'Is Admin', type: 'boolean', isSortable: true },
-    { key: 'is_superuser', label: 'Is Superuser', type: 'boolean', isSortable: true },
+    { key: 'code', label: 'Code', type: 'text', isSortable: true, isPrimary: true },
+    { key: 'name', label: 'Name', type: 'text', isSortable: true },
+    { key: 'country', label: 'Country', type: 'text', isSortable: true },
   ])
 
   function toggleLoading() {
@@ -58,13 +46,16 @@ export const useUsersStore = defineStore('users', () => {
   }
 
   async function load() {
+    toggleLoading()
     try {
-      const response = await fetchUsers({ page: page.value, size: size.value })
+      const response = await fetchAdministrativeLevelOnes({ page: page.value, size: size.value })
       if (!response) return
       data.value = response.data
       count.value = response.count
     } catch (error) {
       console.error('Failed to fetch continents:', error)
+    } finally {
+      toggleLoading()
     }
   }
 

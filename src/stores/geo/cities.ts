@@ -39,7 +39,7 @@ export const useCitiesStore = defineStore('cities', () => {
   } = useSelection<ICity>(data, 'id')
 
   const fields = ref<ITableField[]>([
-    { key: 'id', label: 'Id', type: 'text', isSortable: true },
+    { key: 'id', label: 'Id', type: 'text', isSortable: true, isPrimary: true },
     { key: 'name', label: 'name', type: 'text', isSortable: true },
     { key: 'code_postal', label: 'Code postal', type: 'text', isSortable: true },
     { key: 'code_insee', label: 'Code insee', type: 'text', isSortable: true },

@@ -5,30 +5,44 @@ import { onMounted } from 'vue'
 import DashboardHeaderComponent from '@/components/dashboard/DashboardHeaderComponent.vue'
 import TableComponent from '@/components/table/TableComponent.vue'
 
+// Interfaces
+import type { IContinent } from '@/interfaces/geo/IContinent'
+
 // Stores
 // import { useCoreStore } from '@/stores/core'
 import { useContinentsStore } from '@/stores/geo/continents'
 
 // const coreStore = useCoreStore()
-const continentStore = useContinentsStore()
+const continentsStore = useContinentsStore()
 
 onMounted(() => {
   console.log('TableComponent mounted')
-  continentStore.load()
+  continentsStore.load()
 })
 </script>
 
 <template>
   <DashboardHeaderComponent title="Continents" />
   <TableComponent
-    :data="continentStore.data"
-    :fields="continentStore.fields"
-    :count="continentStore.count"
-    :page="continentStore.page"
-    :size="continentStore.size"
-    :total-pages="continentStore.totalPages"
-    :prevPage="() => continentStore.prevPage()"
-    :nextPage="() => continentStore.nextPage()"
-    :setSize="(size: number) => continentStore.setSize(size)"
+    :isLoading="continentsStore.isLoading"
+    :data="continentsStore.sortedData"
+    :fields="continentsStore.fields"
+    :count="continentsStore.count"
+    :page="continentsStore.page"
+    :size="continentsStore.size"
+    :totalPages="continentsStore.totalPages"
+    :sortKey="continentsStore.sortKey"
+    :sortOrder="continentsStore.sortOrder"
+    :countSelected="continentsStore.countSelected"
+    :selectionConstructedMessage="continentsStore.selectionConstructedMessage"
+    :prevPage="() => continentsStore.prevPage()"
+    :nextPage="() => continentsStore.nextPage()"
+    :setSize="(size: number) => continentsStore.setSize(size)"
+    :setPage="(page: number) => continentsStore.setPage(page)"
+    :setSort="(fid) => continentsStore.setSort(fid)"
+    :selectItem="(item) => continentsStore.selectItem(item as IContinent)"
+    :selectAll="() => continentsStore.selectAll()"
+    :toggleSelectAll="() => continentsStore.toggleSelectAll()"
+    :isItemSelected="(item) => continentsStore.isSelected(item as IContinent)"
   />
 </template>

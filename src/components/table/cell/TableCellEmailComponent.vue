@@ -6,6 +6,8 @@ const props = defineProps<{
 
 <template>
   <div class="flex justify-center">
-    <span>{{ props.value ? props.value : '-' }}</span>
+    <a class="hover:text-primary" :href="`mailto:${props.value}`">{{
+      props.value ? props.value : '-'
+    }}</a>
   </div>
 </template>

@@ -12,6 +12,7 @@ import SidebarMenuComponent from '@/components/sidebar/SidebarMenuComponent.vue'
 import IconComputerTower from '@/components/icons/IconComputerTower.vue'
 import IconSun from '@/components/icons/IconSun.vue'
 import IconMoon from '@/components/icons/IconMoon.vue'
+import IconX from '@/components/icons/IconX.vue'
 
 // Stores
 import { useCoreStore } from '@/stores/core'
@@ -37,7 +38,16 @@ onMounted(() => {
     v-if="coreStore.isSidebarOpen"
     class="flex flex-col gap-4 px-2 py-4 min-w-72 max-w-72 bg-base-200 border-r border-base-300"
   >
-    <div class="flex justify-center py-2">
+    <div>
+      <div
+        v-if="coreStore.isSidebarOpen"
+        class="flex justify-end cursor-pointer"
+        @click="coreStore.toggleSidebar"
+      >
+        <IconX class="w-6 h-6" />
+      </div>
+    </div>
+    <div class="flex justify-center mb-2">
       <h2 class="text-4xl font-black">{{ appName }}</h2>
     </div>
 

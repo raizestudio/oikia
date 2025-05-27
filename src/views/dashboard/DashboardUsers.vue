@@ -5,6 +5,9 @@ import { onMounted } from 'vue'
 import DashboardHeaderComponent from '@/components/dashboard/DashboardHeaderComponent.vue'
 import TableComponent from '@/components/table/TableComponent.vue'
 
+// Interfaces
+import type { IUser } from '@/interfaces/users/IUser'
+
 // Stores
 import { useUsersStore } from '@/stores/users'
 
@@ -23,14 +26,25 @@ onMounted(() => {
     <span>Loading</span>
   </div> -->
   <TableComponent
-    :data="usersStore.data"
+    :isLoading="usersStore.isLoading"
+    :data="usersStore.sortedData"
     :fields="usersStore.fields"
     :count="usersStore.count"
     :page="usersStore.page"
     :size="usersStore.size"
-    :total-pages="usersStore.totalPages"
+    :totalPages="usersStore.totalPages"
+    :sortKey="usersStore.sortKey"
+    :sortOrder="usersStore.sortOrder"
+    :countSelected="usersStore.countSelected"
+    :selectionConstructedMessage="usersStore.selectionConstructedMessage"
     :prevPage="() => usersStore.prevPage()"
     :nextPage="() => usersStore.nextPage()"
     :setSize="(size: number) => usersStore.setSize(size)"
+    :setPage="(page: number) => usersStore.setPage(page)"
+    :setSort="(fid) => usersStore.setSort(fid)"
+    :selectItem="(item) => usersStore.selectItem(item as IUser)"
+    :selectAll="() => usersStore.selectAll()"
+    :toggleSelectAll="() => usersStore.toggleSelectAll()"
+    :isItemSelected="(item) => usersStore.isSelected(item as IUser)"
   />
 </template>

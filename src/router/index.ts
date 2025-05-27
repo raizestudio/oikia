@@ -6,9 +6,13 @@ import DashboardView from '@/views/dashboard/DashboardView.vue'
 import DashboardUsers from '@/views/dashboard/DashboardUsers.vue'
 import DashboardContinents from '@/views/dashboard/DashboardContinents.vue'
 import DashboardCountries from '@/views/dashboard/DashboardCountries.vue'
+import DashboardAdministrativeLevelOnes from '@/views/dashboard/DashboardAdministrativeLevelOnes.vue'
+import DashboardAdministrativeLevelTwos from '@/views/dashboard/DashboardAdministrativeLevelTwos.vue'
 import DashboardCities from '@/views/dashboard/DashboardCities.vue'
+import DashboardAddresses from '@/views/dashboard/DashboardAddresses.vue'
 import NotFoundView from '@/views/errors/NotFoundView.vue'
 import InternalErrorView from '@/views/errors/InternalErrorView.vue'
+import DashboardStreets from '@/views/dashboard/DashboardStreets.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -52,9 +56,41 @@ const router = createRouter({
       },
     },
     {
+      path: '/dashboard/data/geo/administrative-level-ones',
+      name: 'dashboard-administrative-level-ones',
+      component: DashboardAdministrativeLevelOnes,
+      meta: {
+        layout: 'dashboard',
+      },
+    },
+    {
+      path: '/dashboard/data/geo/administrative-level-twos',
+      name: 'dashboard-administrative-level-twos',
+      component: DashboardAdministrativeLevelTwos,
+      meta: {
+        layout: 'dashboard',
+      },
+    },
+    {
       path: '/dashboard/data/geo/cities',
       name: 'dashboard-cities',
       component: DashboardCities,
+      meta: {
+        layout: 'dashboard',
+      },
+    },
+    {
+      path: '/dashboard/data/geo/streets',
+      name: 'dashboard-streets',
+      component: DashboardStreets,
+      meta: {
+        layout: 'dashboard',
+      },
+    },
+    {
+      path: '/dashboard/data/geo/addresses',
+      name: 'dashboard-addresses',
+      component: DashboardAddresses,
       meta: {
         layout: 'dashboard',
       },

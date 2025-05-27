@@ -1,8 +1,5 @@
 <script setup lang="ts">
 // Icons
-import IconTrash from '@/components/icons/IconTrash.vue'
-import IconArchive from '@/components/icons/IconArchive.vue'
-import IconArrowClockwise from '@/components/icons/IconArrowClockwise.vue'
 import IconPlus from '@/components/icons/IconPlus.vue'
 import IconFileCsv from '@/components/icons/IconFileCsv.vue'
 import IconFileXls from '@/components/icons/IconFileXls.vue'
@@ -18,11 +15,6 @@ const props = defineProps<{
   isLoading?: boolean
   hasSelectedItems?: boolean
   fields?: ITableField[]
-  //   page: number
-  //   count: number
-  //   size: number
-  //   prevPage: () => void
-  //   nextPage: () => void
 }>()
 </script>
 
@@ -30,7 +22,7 @@ const props = defineProps<{
   <div class="flex justify-between items-center gap-4">
     <div class="flex items-center gap-4">
       <div v-if="props.isLoading" class="w-5 h-5 loading bg-warning"></div>
-      <div v-else class="min-w-5 h-5 border-2 border-white rounded-full"></div>
+      <div v-else class="min-w-5 h-5 border-3 border-base-content/20 rounded-full"></div>
       <div class="flex items-center gap-6">
         <div>
           <label class="input h-8 focus-within:outline-0">
@@ -69,33 +61,51 @@ const props = defineProps<{
         </div>
       </div>
     </div>
-    <div class="flex items-center gap-4">
+    <!-- Selected actions -->
+    <div class="flex items-center gap-2">
       <span>{{ props.selectionConstructedMessage }}</span>
       <div v-if="props.hasSelectedItems" class="flex gap-2">
-        <button class="btn btn-sm btn-warning px-2 py-1">
-          <IconArchive class="w-5 h-5 text-white" />
+        <button class="btn btn-sm bg-warning h-[29px] px-2 py-1 !mt-[1px] border-none">
+          <span class="text-white">Archive</span>
         </button>
-        <button class="btn btn-sm btn-error px-2 py-1">
-          <IconTrash class="w-5 h-5 text-white" />
+        <button class="btn btn-sm bg-error h-[29px] px-2 py-1 !mt-[1px] border-none">
+          <span class="text-white">Delete</span>
         </button>
       </div>
-      <div class="flex gap-1">
-        <button class="btn btn-sm px-2 py-1">
-          <IconArrowClockwise class="w-5 h-5 text-white" />
-        </button>
+      <!-- Last actions -->
+      <div class="flex h-8 gap-2">
+        <div class="flex gap-1">
+          <button class="btn btn-sm px-2 py-1 border-none shadow-none">
+            <span>Refresh</span>
+          </button>
+          <!-- TODO: create actual dropdown component -->
+          <details class="dropdown h-8">
+            <summary class="btn btn-sm h-8 px-2 py-1 border-none shadow-none">Extract</summary>
+            <div
+              class="menu dropdown-content gap-2 bg-base-100 rounded-box z-1 w-min p-2 shadow-sm !mt-2"
+            >
+              <button class="btn btn-sm px-2 py-1">
+                <IconFileCsv class="w-5 h-5 text-base-content" />
+                <span>CSV</span>
+              </button>
+              <button class="btn btn-sm px-2 py-1">
+                <IconFileXls class="w-5 h-5 text-base-content" />
+                <span>Excel</span>
+              </button>
+              <button class="btn btn-sm px-2 py-1">
+                <IconFilePdf class="w-5 h-5 text-base-content" />
+                <span>PDF</span>
+              </button>
+            </div>
+          </details>
+        </div>
 
-        <button class="btn btn-sm px-2 py-1">
-          <IconFileCsv class="w-5 h-5 text-white" />
-        </button>
-        <button class="btn btn-sm px-2 py-1">
-          <IconFileXls class="w-5 h-5 text-white" />
-        </button>
-        <button class="btn btn-sm px-2 py-1">
-          <IconFilePdf class="w-5 h-5 text-white" />
-        </button>
-        <button class="btn btn-sm btn-primary px-2 py-1">
-          <IconPlus class="w-5 h-5 text-white" />
-        </button>
+        <div class="flex h-8">
+          <button class="btn btn-sm bg-primary h-[29px] px-1.5 py-1 !mt-[1px] border-none">
+            <IconPlus class="w-5 h-5 text-white" />
+            <span class="text-white">Create</span>
+          </button>
+        </div>
       </div>
     </div>
   </div>

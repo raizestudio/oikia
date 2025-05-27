@@ -11,6 +11,7 @@ const props = defineProps<{
   count: number
   size: number
   totalPages: number
+  isLoading: boolean
   prevPage: () => void
   nextPage: () => void
   setSize: (size: number) => void
@@ -40,7 +41,10 @@ const toggleIsEditingPage = () => {
     <div class="flex gap-1">
       <div class="flex gap-2 p-1 text-nowrap">
         <span class="text-sm">Page</span>
-        <div v-if="isEditingPage" class="border border-base-content/25 rounded px-1 py-0">
+        <div
+          v-if="isEditingPage"
+          class="flex items-center border border-base-content/25 rounded px-2 py-0"
+        >
           <input
             type="text"
             class="input input-xs focus:outline-0 p-0 w-8 border-none outline-none rounded-none focus:shadow-none text-center size-4"
@@ -58,7 +62,7 @@ const toggleIsEditingPage = () => {
         </div>
         <div
           v-else
-          class="border border-base-content/25 rounded px-4 py-0"
+          class="flex items-center border border-base-content/25 rounded px-5 py-0"
           @click="toggleIsEditingPage"
         >
           <span class="text-xs">{{ props.page }}</span>
@@ -89,13 +93,17 @@ const toggleIsEditingPage = () => {
       <span>{{ currentlyDisplaying }}</span>
     </div>
     <div class="flex gap-2">
-      <button class="btn" @click="() => props.prevPage()" :disabled="props.page <= 1">
+      <button
+        class="btn border-none shadow-none"
+        @click="() => props.prevPage()"
+        :disabled="props.page <= 1 || props.isLoading"
+      >
         <IconCarret class="w-4 h-4 rotate-180" />
       </button>
       <button
-        class="btn"
+        class="btn border-none shadow-none"
         @click="() => props.nextPage()"
-        :disabled="props.page === props.totalPages"
+        :disabled="props.page === props.totalPages || props.isLoading"
       >
         <IconCarret class="w-4 h-4" />
       </button>

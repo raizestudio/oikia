@@ -1,4 +1,7 @@
 <script setup lang="ts">
+// Components
+import ProfileNavbarComponent from '@/components/profile/ProfileNavbarComponent.vue'
+
 // Icons
 import IconBell from '@/components/icons/IconBell.vue'
 import IconSliders from '@/components/icons/IconSliders.vue'
@@ -20,7 +23,11 @@ const isDemo = import.meta.env.VITE_IS_DEMO === 'true'
   <div class="navbar px-6 min-h-[56px] bg-base-200 border-b border-base-300">
     <!-- LEFT ACTIONS ? -->
     <div class="flex items-center gap-2">
-      <IconList class="w-6 h-6 fill-base-content cursor-pointer" @click="coreStore.toggleSidebar" />
+      <IconList
+        v-if="!coreStore.isSidebarOpen"
+        class="w-6 h-6 fill-base-content cursor-pointer"
+        @click="coreStore.toggleSidebar"
+      />
       <div
         v-if="env === 'dev' && !isDemo"
         class="tooltip tooltip-bottom"
@@ -52,13 +59,16 @@ const isDemo = import.meta.env.VITE_IS_DEMO === 'true'
       </label>
     </div>
     <!-- RIGHT ACTIONS ? -->
-    <div>
-      <button class="btn btn-sm btn-ghost">
-        <IconBell width="20" />
-      </button>
-      <button class="btn btn-sm btn-ghost">
-        <IconSliders width="20" />
-      </button>
+    <div class="flex gap-4">
+      <ProfileNavbarComponent />
+      <div>
+        <button class="btn btn-sm btn-ghost">
+          <IconBell width="20" />
+        </button>
+        <button class="btn btn-sm btn-ghost">
+          <IconSliders width="20" />
+        </button>
+      </div>
     </div>
   </div>
 </template>

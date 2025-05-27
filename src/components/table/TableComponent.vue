@@ -2,9 +2,12 @@
 // Components
 import TableHeadComponent from '@/components/table/TableHeadComponent.vue'
 import TableFooterComponent from '@/components/table/TableFooterComponent.vue'
-import TableTextComponent from '@/components/table/cell/TableTextComponent.vue'
-import TableDateComponent from '@/components/table/cell/TableDateComponent.vue'
-import TableBoolComponent from '@/components/table/cell/TableBoolComponent.vue'
+import TableCellAvatarComponent from '@/components/table/cell/TableCellAvatarComponent.vue'
+import TableCellTextComponent from '@/components/table/cell/TableCellTextComponent.vue'
+import TableCellDateComponent from '@/components/table/cell/TableCellDateComponent.vue'
+import TableCellBoolComponent from '@/components/table/cell/TableCellBoolComponent.vue'
+import TableCellEmail from '@/components/table/cell/TableCellEmailComponent.vue'
+import TablePhoneComponent from '@/components/table/cell/TableCellPhoneComponent.vue'
 import LoadingTableSkeleton from '@/components/loading/LoadingTableSkeleton.vue'
 
 // Icons
@@ -27,9 +30,12 @@ const coreStore = useCoreStore()
 const tableStore = useTableStore()
 
 const componentMap = {
-  text: TableTextComponent,
-  date: TableDateComponent,
-  boolean: TableBoolComponent,
+  avatar: TableCellAvatarComponent,
+  text: TableCellTextComponent,
+  date: TableCellDateComponent,
+  boolean: TableCellBoolComponent,
+  email: TableCellEmail,
+  phone: TablePhoneComponent,
 }
 
 const props = defineProps<{
@@ -65,6 +71,10 @@ const props = defineProps<{
       :has-selected-items="!!props.countSelected"
       :fields="props.fields"
     />
+    <div v-if="data.length === 0" class="text-center text-base-content/50 py-16">
+      <p class="text-lg font-semibold">No data available</p>
+    </div>
+
     <div
       :class="`overflow-x-auto overflow-y-auto`"
       :style="{
@@ -72,19 +82,23 @@ const props = defineProps<{
         maxHeight: 'calc(100vh - 316px)',
       }"
     >
-      <table class="table table-pin-rows border-separate border-spacing-0">
+      <table class="table table-zebra table-pin-rows">
         <!-- head -->
         <thead>
-          <tr>
-            <th class="border-b border-base-content/10">
+          <tr class="bg-base-300">
+            <th>
               <label>
-                <input type="checkbox" class="checkbox" @change.prevent="props.toggleSelectAll" />
+                <input
+                  type="checkbox"
+                  class="checkbox checkbox-sm"
+                  @change.prevent="props.toggleSelectAll"
+                />
               </label>
             </th>
             <th
               v-for="(option, index) in props.fields"
               :key="index"
-              class="border-t border-b border-l border-base-content/10 hover:bg-base-300"
+              class="hover:bg-base-300"
               @mouseenter="tableStore.handleRowHover(index, option.key)"
             >
               <div class="flex justify-between items-center">
@@ -97,15 +111,18 @@ const props = defineProps<{
                   >
                     <IconSortAscending
                       v-if="props.sortKey === option.key && props.sortOrder === 'desc'"
-                      class="w-6 h-6"
+                      :class="`w-6 h-6 ${sortKey === option.key ? 'text-base-content' : ''}`"
                     />
-                    <IconSortDescending v-else class="w-6 h-6" />
+                    <IconSortDescending
+                      v-else
+                      :class="`w-6 h-6 ${sortKey === option.key ? 'text-base-content' : ''}`"
+                    />
                   </div>
                   <IconFunnel class="w-5 h-5" />
                 </div>
               </div>
             </th>
-            <th class="border-b border-l border-base-content/10">Actions</th>
+            <th class="">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -116,11 +133,11 @@ const props = defineProps<{
             class="hover:bg-base-200"
             @mouseleave="tableStore.handleRowLeave"
           >
-            <td class="border-b border-base-content/10">
+            <td>
               <label>
                 <input
                   type="checkbox"
-                  class="checkbox"
+                  class="checkbox checkbox-sm"
                   :checked="props.isItemSelected ? props.isItemSelected(item) : false"
                   @change.prevent="props.selectItem ? props.selectItem(item) : null"
                 />
@@ -129,30 +146,36 @@ const props = defineProps<{
             <td
               v-for="(field, fieldIndex) in props.fields"
               :key="fieldIndex"
-              :class="`border-b border-l border-base-content/10 hover:bg-base-300 ${
+              :class="` hover:bg-base-300 ${
                 tableStore.hoveredRowKey === field.key ? 'bg-base-300/20' : ''
               }`"
               @mouseenter="tableStore.handleRowHover(index, field.key)"
             >
+              <TableCellAvatarComponent
+                v-if="field.type === 'avatar'"
+                :avatar="item[field.key as keyof typeof item] as string"
+                :label="item[field.labelKey as keyof typeof item] as string"
+              />
               <component
                 :is="componentMap[field.type]"
                 :value="item[field.key as keyof typeof item]"
-                v-if="field.type"
+                :isPrimary="field.isPrimary"
+                v-else-if="field.type"
               />
               <div v-else>
                 {{ item[field.key as keyof typeof item] }}
               </div>
             </td>
-            <td class="border-b border-l border-base-content/10">
-              <div class="flex gap-2">
-                <button class="btn btn-xs btn-primary">
+            <td class="">
+              <div class="flex gap-2 py-1">
+                <button class="btn btn-xs btn-ghost">
                   <IconEye class="w-4 h-4" />
                 </button>
-                <button class="btn btn-xs btn-primary">
+                <button class="btn btn-xs btn-ghost">
                   <IconPencil class="w-4 h-4" />
                 </button>
-                <button class="btn btn-xs btn-warning">
-                  <IconArchive class="w-4 h-4 text-white" />
+                <button class="btn btn-xs btn-ghost hover:btn-warning">
+                  <IconArchive class="w-4 h-4" />
                 </button>
                 <button class="btn btn-xs btn-error">
                   <IconTrash class="w-4 h-4 text-white" />
@@ -168,6 +191,7 @@ const props = defineProps<{
       :count="props.count"
       :size="props.size"
       :totalPages="props.totalPages"
+      :isLoading="props.isLoading"
       :prevPage="props.prevPage"
       :nextPage="props.nextPage"
       :setSize="(size: number) => props.setSize(size)"
