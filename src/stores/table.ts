@@ -2,7 +2,7 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useTableStore = defineStore('table', () => {
-  const isLoading = ref(true)
+  const isLoading = ref(false)
   const hoveredRowIndex = ref<number | null>(null)
   const hoveredRowKey = ref<string | null>(null)
 
