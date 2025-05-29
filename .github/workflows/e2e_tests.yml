@@ -56,7 +56,7 @@ jobs:
         working-directory: .
         env:
           NODE_ENV: test
-      
+          VITE_APP_NAME: 'Oikia'
       # - name: Wait for frontend to be ready
       #   run: npx wait-on http://localhost:5173
       #   # working-directory: 
