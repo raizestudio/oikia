@@ -41,5 +41,9 @@ onMounted(() => {
     :selectAll="() => citiesStore.selectAll()"
     :toggleSelectAll="() => citiesStore.toggleSelectAll()"
     :isItemSelected="(item) => citiesStore.isSelected(item as ICity)"
+    :filterValue="citiesStore.filterValue"
+    :setFilterKey="(key: keyof ICity) => citiesStore.setFilterKey(key)"
+    :setFilterValue="(value: string) => citiesStore.setFilterValue(value)"
+    :setFilter="(key: keyof ICity, value: string) => citiesStore.setFilter(key, value)"
   />
 </template>

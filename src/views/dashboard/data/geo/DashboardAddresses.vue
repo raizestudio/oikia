@@ -19,7 +19,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <DashboardHeaderComponent title="Cities" />
+  <DashboardHeaderComponent title="Addresses" />
   <TableComponent
     :isLoading="addressesStore.isLoading"
     :data="addressesStore.sortedData"
@@ -41,5 +41,9 @@ onMounted(() => {
     :selectAll="() => addressesStore.selectAll()"
     :toggleSelectAll="() => addressesStore.toggleSelectAll()"
     :isItemSelected="(item) => addressesStore.isSelected(item as IAddress)"
+    :filterValue="addressesStore.filterValue"
+    :setFilterKey="(key: keyof IAddress) => addressesStore.setFilterKey(key)"
+    :setFilterValue="(value: string) => addressesStore.setFilterValue(value)"
+    :setFilter="(key: keyof IAddress, value: string) => addressesStore.setFilter(key, value)"
   />
 </template>

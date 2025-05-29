@@ -43,5 +43,14 @@ onMounted(() => {
     :isItemSelected="
       (item) => administrativeLevelOnesStore.isSelected(item as IAdministrativeLevelOne)
     "
+    :filterValue="administrativeLevelOnesStore.filterValue"
+    :setFilterKey="
+      (key: keyof IAdministrativeLevelOne) => administrativeLevelOnesStore.setFilterKey(key)
+    "
+    :setFilterValue="(value: string) => administrativeLevelOnesStore.setFilterValue(value)"
+    :setFilter="
+      (key: keyof IAdministrativeLevelOne, value: string) =>
+        administrativeLevelOnesStore.setFilter(key, value)
+    "
   />
 </template>

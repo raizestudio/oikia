@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { onMounted } from 'vue'
+
 // Components
 import HeroComponent from '@/components/hero/HeroComponent.vue'
 // import MapComponent from '@/components/map/MapComponent.vue'
@@ -10,7 +12,6 @@ import FranceChartComponent from '@/components/charts/FranceChartComponent.vue'
 import IconMapPin from '@/components/icons/IconMapPin.vue'
 import IconBookOpen from '@/components/icons/IconBookOpen.vue'
 import IconShield from '@/components/icons/IconShield.vue'
-import { onMounted } from 'vue'
 
 const appName = import.meta.env.VITE_APP_NAME
 
@@ -230,7 +231,7 @@ onMounted(() => {
       </template>
     </CardComponent>
   </div>
-  <!-- TODO: not sure about this one, map ok though  -->
+  <!-- todo not sure about this one, map ok though  -->
   <!-- <div class="h-screen flex items-center">
     <div class="w-2/5 h-2/3">
       <MapComponent />

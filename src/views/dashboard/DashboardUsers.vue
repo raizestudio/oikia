@@ -46,5 +46,10 @@ onMounted(() => {
     :selectAll="() => usersStore.selectAll()"
     :toggleSelectAll="() => usersStore.toggleSelectAll()"
     :isItemSelected="(item) => usersStore.isSelected(item as IUser)"
+    :filterKey="usersStore.filterKey as keyof IUser"
+    :filterValue="usersStore.filterValue"
+    :setFilterKey="(key: keyof IUser) => usersStore.setFilterKey(key)"
+    :setFilterValue="(value: string) => usersStore.setFilterValue(value)"
+    :setFilter="(key: keyof IUser, value: string) => usersStore.setFilter(key, value)"
   />
 </template>

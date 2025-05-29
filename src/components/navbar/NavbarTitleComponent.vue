@@ -21,7 +21,7 @@ const isDemo = import.meta.env.VITE_IS_DEMO === 'true'
     </div>
     <div v-else-if="isDemo" class="tooltip tooltip-bottom" data-tip="Demo environment">
       <div class="bg-primary rounded p-0.5">
-        <IconEyes class="fill-base-content w-6 h-6" />
+        <IconEyes class="fill-white w-6 h-6" />
       </div>
     </div>
     <span class="text-2xl font-black font-kneewave select-none">{{ $capitalize(appName) }}</span>

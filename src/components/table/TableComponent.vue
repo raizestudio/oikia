@@ -59,6 +59,11 @@ const props = defineProps<{
   selectAll?: () => void
   toggleSelectAll?: () => void
   isItemSelected?: (item: TableData) => boolean
+  filterKey?: string
+  filterValue?: string | number | null
+  setFilterKey?: (key: keyof TableData) => void
+  setFilterValue?: (value: string) => void
+  setFilter?: (key: keyof TableData, value: string) => void
 }>()
 </script>
 
@@ -70,10 +75,12 @@ const props = defineProps<{
       :isLoading="props.isLoading"
       :has-selected-items="!!props.countSelected"
       :fields="props.fields"
+      :filterKey="props.filterKey"
+      :filterValue="props.filterValue"
+      :setFilterKey="props.setFilterKey"
+      :setFilterValue="props.setFilterValue"
+      :setFilter="props.setFilter"
     />
-    <div v-if="data.length === 0" class="text-center text-base-content/50 py-16">
-      <p class="text-lg font-semibold">No data available</p>
-    </div>
 
     <div
       :class="`overflow-x-auto overflow-y-auto`"
@@ -125,6 +132,7 @@ const props = defineProps<{
             <th class="">Actions</th>
           </tr>
         </thead>
+
         <tbody>
           <!-- row 1 -->
           <tr
@@ -155,6 +163,8 @@ const props = defineProps<{
                 v-if="field.type === 'avatar'"
                 :avatar="item[field.key as keyof typeof item] as string"
                 :label="item[field.labelKey as keyof typeof item] as string"
+                :fallback="$capitalize(item[field.labelKey as keyof typeof item][0] as string)"
+                :role="item[field.roleKey as keyof typeof item] as string"
               />
               <component
                 :is="componentMap[field.type]"
@@ -185,6 +195,9 @@ const props = defineProps<{
           </tr>
         </tbody>
       </table>
+    </div>
+    <div v-if="data.length === 0" class="text-center text-base-content/50 py-16">
+      <p class="text-lg font-semibold">No data available</p>
     </div>
     <TableFooterComponent
       :page="props.page"

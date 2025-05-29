@@ -44,5 +44,9 @@ onMounted(() => {
     :selectAll="() => continentsStore.selectAll()"
     :toggleSelectAll="() => continentsStore.toggleSelectAll()"
     :isItemSelected="(item) => continentsStore.isSelected(item as IContinent)"
+    :filterValue="continentsStore.filterValue"
+    :setFilterKey="(key: keyof IContinent) => continentsStore.setFilterKey(key)"
+    :setFilterValue="(value: string) => continentsStore.setFilterValue(value)"
+    :setFilter="(key: keyof IContinent, value: string) => continentsStore.setFilter(key, value)"
   />
 </template>

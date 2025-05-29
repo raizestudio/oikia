@@ -36,25 +36,37 @@ onMounted(() => {
       <div class="flex items-center gap-1">
         <IconQuestionMark class="w-4.5 h-4.5" />
         <span class="text-xs font-bold text-base-content/50">API status</span>
-        <div class="w-2.5 h-2.5 bg-success rounded-xs"></div>
+        <div class="inline-grid *:[grid-area:1/1]">
+          <!-- <div class="status status-success animate-ping"></div> -->
+          <div class="status status-success"></div>
+        </div>
       </div>
 
       <div class="flex items-center gap-1">
         <IconDatabase class="w-4.5 h-4.5" />
         <span class="text-xs font-bold text-base-content/50">Psql status</span>
-        <div class="w-2.5 h-2.5 bg-success rounded-xs"></div>
+        <div class="inline-grid *:[grid-area:1/1]">
+          <!-- <div class="status status-success animate-ping"></div> -->
+          <div class="status status-success"></div>
+        </div>
       </div>
 
       <div class="flex items-center gap-1">
         <IconQuestionMark class="w-4.5 h-4.5" />
         <span class="text-xs font-bold text-base-content/50">Redis status</span>
-        <div class="w-2.5 h-2.5 bg-success rounded-xs"></div>
+        <div class="inline-grid *:[grid-area:1/1]">
+          <!-- <div class="status status-success animate-ping"></div> -->
+          <div class="status status-success"></div>
+        </div>
       </div>
 
       <div class="flex items-center gap-1">
         <IconQuestionMark class="w-4.5 h-4.5" />
         <span class="text-xs font-bold text-base-content/50">Spark status</span>
-        <div class="w-2.5 h-2.5 bg-success rounded-xs"></div>
+        <div class="inline-grid *:[grid-area:1/1]">
+          <!-- <div class="status status-success animate-ping"></div> -->
+          <div class="status status-success"></div>
+        </div>
       </div>
     </div>
     <div class="flex items-center gap-1">

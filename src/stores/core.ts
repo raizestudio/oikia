@@ -36,7 +36,7 @@ function buildMenuTree(flat: IMenu[]) {
 }
 
 export const useCoreStore = defineStore('core', () => {
-  const isGlobalLoading = ref(false)
+  const isGlobalLoading = ref(true)
   const isLoading = ref(true)
   const isSidebarOpen = ref(false)
   const menus = ref<IMenu[]>([])
@@ -63,6 +63,10 @@ export const useCoreStore = defineStore('core', () => {
     })
   }
 
+  function setGlobalLoading(loading: boolean) {
+    isGlobalLoading.value = loading
+  }
+
   function setLoading(loading: boolean) {
     isLoading.value = loading
   }
@@ -76,6 +80,7 @@ export const useCoreStore = defineStore('core', () => {
     toggleSidebar,
     checkSidebarLocalStorage,
     setMenus,
+    setGlobalLoading,
     setLoading,
   }
 })

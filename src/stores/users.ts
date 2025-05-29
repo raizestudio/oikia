@@ -12,6 +12,7 @@ import type { ITableField } from '@/interfaces/table/ITable'
 import { usePagination } from '@/composables/usePagination'
 import { useSorting } from '@/composables/table/useSorting'
 import { useSelection } from '@/composables/table/useSelection'
+import { useFiltering } from '@/composables/table/useFiltering'
 
 export const useUsersStore = defineStore('users', () => {
   const isLoading = ref(false)
@@ -19,8 +20,18 @@ export const useUsersStore = defineStore('users', () => {
   const { page, size, count, totalPages, nextPage, prevPage, setPage, setSize, setCount } =
     usePagination(1, 10)
 
+  const {
+    filteredData,
+    setFilter,
+    clearFilter,
+    filterKey,
+    filterValue,
+    setFilterKey,
+    setFilterValue,
+  } = useFiltering(data, null, '')
+
   const { sortedData, sortKey, sortOrder, setSort, clearSort } = useSorting<IUser>(
-    data,
+    filteredData,
     'id',
     'asc',
   )
@@ -40,7 +51,14 @@ export const useUsersStore = defineStore('users', () => {
 
   const fields = ref<ITableField[]>([
     { key: 'id', label: 'Id', type: 'text', isSortable: true, isPrimary: true },
-    { key: 'avatar', label: 'User', type: 'avatar', isSortable: true, labelKey: 'username' },
+    {
+      key: 'avatar',
+      label: 'User',
+      type: 'avatar',
+      isSortable: true,
+      labelKey: 'username',
+      roleKey: 'role',
+    },
     // { key: 'username', label: 'Username', type: 'text', isSortable: true },
     { key: 'first_name', label: 'First Name', type: 'text', isSortable: true },
     { key: 'last_name', label: 'Last Name', type: 'text', isSortable: true },
@@ -51,6 +69,7 @@ export const useUsersStore = defineStore('users', () => {
     { key: 'is_active', label: 'Is Active', type: 'boolean', isSortable: true },
     { key: 'is_admin', label: 'Is Admin', type: 'boolean', isSortable: true },
     { key: 'is_superuser', label: 'Is Superuser', type: 'boolean', isSortable: true },
+    // { key: 'role', label: 'Role', type: 'text', isSortable: true },
   ])
 
   function toggleLoading() {
@@ -85,6 +104,7 @@ export const useUsersStore = defineStore('users', () => {
     setCount,
     nextPage,
     prevPage,
+
     sortedData,
     sortKey,
     sortOrder,
@@ -100,5 +120,13 @@ export const useUsersStore = defineStore('users', () => {
     toggleSelectAll,
     countSelected,
     selectionConstructedMessage,
+
+    filteredData,
+    setFilterKey,
+    setFilterValue,
+    setFilter,
+    clearFilter,
+    filterKey,
+    filterValue,
   }
 })

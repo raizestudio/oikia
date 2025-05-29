@@ -12,6 +12,7 @@ import type { ITableField } from '@/interfaces/table/ITable'
 import { usePagination } from '@/composables/usePagination'
 import { useSorting } from '@/composables/table/useSorting'
 import { useSelection } from '@/composables/table/useSelection'
+import { useFiltering } from '@/composables/table/useFiltering'
 
 export const useAdministrativeLevelOnesStore = defineStore('administrativeLevelOnesStore', () => {
   const isLoading = ref(false)
@@ -19,8 +20,18 @@ export const useAdministrativeLevelOnesStore = defineStore('administrativeLevelO
   const { page, size, count, totalPages, nextPage, prevPage, setPage, setSize, setCount } =
     usePagination(1, 10)
 
+  const {
+    filteredData,
+    setFilter,
+    clearFilter,
+    filterKey,
+    filterValue,
+    setFilterKey,
+    setFilterValue,
+  } = useFiltering(data, null, '')
+
   const { sortedData, sortKey, sortOrder, setSort, clearSort } =
-    useSorting<IAdministrativeLevelOne>(data, 'code', 'asc')
+    useSorting<IAdministrativeLevelOne>(filteredData, 'code', 'asc')
 
   const {
     selectedIds,
@@ -76,6 +87,7 @@ export const useAdministrativeLevelOnesStore = defineStore('administrativeLevelO
     setCount,
     nextPage,
     prevPage,
+
     sortedData,
     sortKey,
     sortOrder,
@@ -91,5 +103,13 @@ export const useAdministrativeLevelOnesStore = defineStore('administrativeLevelO
     toggleSelectAll,
     countSelected,
     selectionConstructedMessage,
+
+    filteredData,
+    setFilterKey,
+    setFilterValue,
+    setFilter,
+    clearFilter,
+    filterKey,
+    filterValue,
   }
 })

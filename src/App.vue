@@ -6,6 +6,7 @@ import { useRoute } from 'vue-router'
 import BaseLayout from '@/layouts/BaseLayout.vue'
 import AdminLayout from '@/layouts/AdminLayout.vue'
 import DashboardLayout from '@/layouts/DashboardLayout.vue'
+import AuthLayout from '@/layouts/AuthLayout.vue'
 import ErrorLayout from '@/layouts/ErrorLayout.vue'
 
 // Stores
@@ -34,6 +35,7 @@ watch(
 const layouts = {
   admin: AdminLayout,
   dashboard: DashboardLayout,
+  auth: AuthLayout,
   error: ErrorLayout,
 }
 

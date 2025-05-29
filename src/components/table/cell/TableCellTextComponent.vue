@@ -10,6 +10,6 @@ const props = defineProps<{
     <span v-if="isPrimary" class="text-primary text-nowrap"
       >#{{ props.value ? props.value : '-' }}</span
     >
-    <span v-else>{{ props.value ? props.value : '-' }}</span>
+    <span v-else class="text-nowrap">{{ props.value ? props.value : '-' }}</span>
   </div>
 </template>

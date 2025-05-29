@@ -12,6 +12,7 @@ import type { ITableField } from '@/interfaces/table/ITable'
 import { usePagination } from '@/composables/usePagination'
 import { useSorting } from '@/composables/table/useSorting'
 import { useSelection } from '@/composables/table/useSelection'
+import { useFiltering } from '@/composables/table/useFiltering'
 
 export const useCitiesStore = defineStore('cities', () => {
   const isLoading = ref(false)
@@ -19,8 +20,18 @@ export const useCitiesStore = defineStore('cities', () => {
   const { page, size, count, totalPages, nextPage, prevPage, setPage, setSize, setCount } =
     usePagination(1, 10)
 
+  const {
+    filteredData,
+    setFilter,
+    clearFilter,
+    filterKey,
+    filterValue,
+    setFilterKey,
+    setFilterValue,
+  } = useFiltering(data, null, '')
+
   const { sortedData, sortKey, sortOrder, setSort, clearSort } = useSorting<ICity>(
-    data,
+    filteredData,
     'id',
     'asc',
   )
@@ -82,6 +93,7 @@ export const useCitiesStore = defineStore('cities', () => {
     setCount,
     nextPage,
     prevPage,
+
     sortedData,
     sortKey,
     sortOrder,
@@ -97,5 +109,13 @@ export const useCitiesStore = defineStore('cities', () => {
     toggleSelectAll,
     countSelected,
     selectionConstructedMessage,
+
+    filteredData,
+    setFilterKey,
+    setFilterValue,
+    setFilter,
+    clearFilter,
+    filterKey,
+    filterValue,
   }
 })

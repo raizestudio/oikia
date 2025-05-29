@@ -6,6 +6,7 @@ import NavbarDashboardComponent from '@/components/navbar/NavbarDashboardCompone
 import FooterDashboardComponent from '@/components/footer/FooterDashboardComponent.vue'
 import SidebarComponent from '@/components/sidebar/SidebarComponent.vue'
 import GlobalLoadingComponent from '@/components/loading/GlobalLoadingComponent.vue'
+import ToastComponent from '@/components/toast/ToastComponent.vue'
 
 // Stores
 import { useCoreStore } from '@/stores/core'
@@ -18,6 +19,7 @@ const coreStore = useCoreStore()
     <GlobalLoadingComponent v-if="coreStore.isGlobalLoading" />
     <!-- <NavbarComponent /> -->
     <main v-else class="h-screen flex">
+      <ToastComponent />
       <SidebarComponent />
       <div class="grow">
         <NavbarDashboardComponent />

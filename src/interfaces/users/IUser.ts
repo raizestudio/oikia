@@ -1,3 +1,5 @@
+export type IUserRole = 'superuser' | 'admin' | 'user'
+
 export interface IUser {
   id: string
   username: string
@@ -14,4 +16,5 @@ export interface IUser {
   phone_number: string
   calling_code: string
   full_phone_number: string
+  role: string
 }

@@ -12,6 +12,7 @@ import type { ITableField } from '@/interfaces/table/ITable'
 import { usePagination } from '@/composables/usePagination'
 import { useSorting } from '@/composables/table/useSorting'
 import { useSelection } from '@/composables/table/useSelection'
+import { useFiltering } from '@/composables/table/useFiltering'
 
 export const useContinentsStore = defineStore('continents', () => {
   const isLoading = ref(false)
@@ -19,8 +20,18 @@ export const useContinentsStore = defineStore('continents', () => {
   const { page, size, count, totalPages, nextPage, prevPage, setPage, setSize, setCount } =
     usePagination(1, 10)
 
+  const {
+    filteredData,
+    setFilter,
+    clearFilter,
+    filterKey,
+    filterValue,
+    setFilterKey,
+    setFilterValue,
+  } = useFiltering(data, null, '')
+
   const { sortedData, sortKey, sortOrder, setSort, clearSort } = useSorting<IContinent>(
-    data,
+    filteredData,
     'code',
     'asc',
   )
@@ -71,6 +82,7 @@ export const useContinentsStore = defineStore('continents', () => {
     toggleLoading,
     load,
     setPage,
+
     setSize,
     setCount,
     nextPage,
@@ -90,5 +102,13 @@ export const useContinentsStore = defineStore('continents', () => {
     toggleSelectAll,
     countSelected,
     selectionConstructedMessage,
+
+    filteredData,
+    setFilterKey,
+    setFilterValue,
+    setFilter,
+    clearFilter,
+    filterKey,
+    filterValue,
   }
 })

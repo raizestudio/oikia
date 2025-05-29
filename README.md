@@ -13,7 +13,7 @@ Frontend for the OIKIA application, which simplifies the discovery of the ideal 
 
 ## Installation
 
-TODO:
+[//]: todo
 
 ### Frontend
 

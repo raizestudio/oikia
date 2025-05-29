@@ -103,7 +103,7 @@ const toggleIsEditingPage = () => {
       <button
         class="btn border-none shadow-none"
         @click="() => props.nextPage()"
-        :disabled="props.page === props.totalPages || props.isLoading"
+        :disabled="props.page === props.totalPages || props.isLoading || props.totalPages === 0"
       >
         <IconCarret class="w-4 h-4" />
       </button>

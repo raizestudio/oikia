@@ -39,7 +39,7 @@ const toggleSubMenu = (subMenuId: number) => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-2 grow">
+  <div class="flex flex-col gap-2 grow overflow-x-auto">
     <template v-for="menu in coreStore.menuTree" :key="menu.id">
       <!-- Dropdown -->
       <div v-if="!menu.path && menu.children.length" class="flex flex-col">
