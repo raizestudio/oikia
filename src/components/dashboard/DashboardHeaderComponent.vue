@@ -6,6 +6,7 @@ import IconGear from '@/components/icons/IconGear.vue'
 
 const props = defineProps<{
   title: string
+  showActions?: boolean
 }>()
 </script>
 
@@ -14,7 +15,7 @@ const props = defineProps<{
     <div>
       <h1 class="text-2xl font-bold">{{ props.title }}</h1>
     </div>
-    <div>
+    <div v-if="props.showActions">
       <button class="btn btn-ghost btn-sm">
         <IconTable class="w-6 h-6" />
       </button>

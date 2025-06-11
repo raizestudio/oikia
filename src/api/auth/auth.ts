@@ -41,12 +41,13 @@ export const authenticateUser = async (email: string, password: string) => {
 }
 
 export const authenticateUserFromToken = async (token: string) => {
-  const { data, error } = await useFetch(`${baseUrl}/auth/user/`, {
-    method: 'GET',
+  const { data, error } = await useFetch(`${baseUrl}/auth/authenticate/token/`, {
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Token ${token}`,
+      // Authorization: `Token ${token}`,
     },
+    body: JSON.stringify({ token }),
   })
     .get()
     .json()
@@ -57,7 +58,7 @@ export const authenticateUserFromToken = async (token: string) => {
   }
 
   console.log('Fetch user successful:', data.value)
-  return data.value.user
+  return data.value
 }
 
 export const logoutUser = async (token: string) => {

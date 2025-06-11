@@ -5,6 +5,7 @@ import { useRouter } from 'vue-router'
 // Icons
 import IconGauge from '@/components/icons/IconGauge.vue'
 import IconDatabase from '@/components/icons/IconDatabase.vue'
+import IconProfile from '@/components/icons/IconProfile.vue'
 
 // Interfaces
 import type { IMenuWithChildren } from '@/interfaces/menu/IMenu'
@@ -18,6 +19,7 @@ const props = defineProps<{
 const iconsMap: Record<string, Component> = {
   IconGauge,
   IconDatabase,
+  IconProfile,
 }
 </script>
 

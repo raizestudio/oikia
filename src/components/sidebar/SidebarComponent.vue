@@ -41,7 +41,7 @@ onMounted(() => {
     <div>
       <div
         v-if="coreStore.isSidebarOpen"
-        class="flex justify-end cursor-pointer"
+        class="flex px-4 cursor-pointer"
         @click="coreStore.toggleSidebar"
       >
         <IconX class="w-6 h-6" />

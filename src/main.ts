@@ -2,6 +2,8 @@ import './assets/main.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import VueECharts from 'vue-echarts'
+import 'echarts'
 
 // Helpers
 import { capitalize } from '@/utils/helpers/textHelper'
@@ -15,5 +17,6 @@ app.config.globalProperties.$capitalize = capitalize
 
 app.use(createPinia())
 app.use(router)
+app.component('v-chart', VueECharts)
 
 app.mount('#app')

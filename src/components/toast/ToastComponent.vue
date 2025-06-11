@@ -7,12 +7,12 @@ import { useToastStore } from '@/stores/toast'
 
 const toastsStore = useToastStore()
 
-toastsStore.addToast({
-  id: Date.now().toString(),
-  message: 'This is a toast message',
-  // isAlert: true,
-  // variant: 'info',
-})
+// toastsStore.addToast({
+//   id: Date.now().toString(),
+//   message: 'This is a toast message',
+//   // isAlert: true,
+//   // variant: 'info',
+// })
 </script>
 
 <template>

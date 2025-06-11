@@ -7,6 +7,9 @@ import type { IAdministrativeLevelTwo } from '@/interfaces/geo/IAdministrativeLe
 import type { ICity } from '@/interfaces/geo/ICity'
 import type { IStreet } from '@/interfaces/geo/IStreet'
 import type { IAddress } from '@/interfaces/geo/IAddress'
+import type { IToken } from '@/interfaces/auth/IToken'
+import type { IRefresh } from '@/interfaces/auth/IRefresh'
+import type { ISession } from '@/interfaces/auth/ISession'
 
 export type TableItem =
   | keyof IUser
@@ -17,6 +20,9 @@ export type TableItem =
   | keyof ICity
   | keyof IStreet
   | keyof IAddress
+  | keyof IToken
+  | keyof IRefresh
+  | keyof ISession
 
 export type TableData =
   | IUser
@@ -27,6 +33,9 @@ export type TableData =
   | ICity
   | IStreet
   | IAddress
+  | IToken
+  | IRefresh
+  | ISession
 
 /**
  * Interface for table fields, which defines the structure of each field in a table.
@@ -51,6 +60,9 @@ export interface ITableField {
     | keyof ICity
     | keyof IStreet
     | keyof IAddress
+    | keyof IToken
+    | keyof IRefresh
+    | keyof ISession
   label: string
   type?: 'avatar' | 'text' | 'boolean' | 'date' | 'email' | 'phone'
   isSortable?: boolean

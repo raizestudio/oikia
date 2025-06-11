@@ -15,15 +15,15 @@ const coreStore = useCoreStore()
 </script>
 
 <template>
-  <div>
+  <div class="flex justify-center">
     <GlobalLoadingComponent v-if="coreStore.isGlobalLoading" />
     <!-- <NavbarComponent /> -->
-    <main v-else class="h-screen flex">
+    <main v-else class="max-w-[2000px] h-screen flex grow">
       <ToastComponent />
       <SidebarComponent />
-      <div class="grow">
+      <div class="grow w-0">
         <NavbarDashboardComponent />
-        <div class="h-[calc(100vh-78px)] flex flex-col gap-6 px-4 py-6 bg-base-300">
+        <div class="h-[calc(100vh-76px)] flex flex-col gap-6 px-4 py-6 bg-base-300 overflow-y-auto">
           <RouterView />
         </div>
         <FooterDashboardComponent />

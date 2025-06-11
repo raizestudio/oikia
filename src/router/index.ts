@@ -3,6 +3,7 @@ import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 // Components
 import LandingView from '@/views/LandingView.vue'
 import DashboardView from '@/views/dashboard/DashboardView.vue'
+import ProfileView from '@/views/dashboard/ProfileView.vue'
 import DashboardUsers from '@/views/dashboard/DashboardUsers.vue'
 import LoginView from '@/views/auth/LoginView.vue'
 import NotFoundView from '@/views/errors/NotFoundView.vue'
@@ -115,6 +116,15 @@ const routes: Array<RouteRecordRaw> = [
     },
   },
   {
+    path: '/dashboard/profile',
+    name: 'dashboard-profile',
+    component: ProfileView,
+    meta: {
+      layout: 'dashboard',
+      requiresAuth: true,
+    },
+  },
+  {
     path: '/dashboard/data/users',
     name: 'dashboard-users',
     component: DashboardUsers,
@@ -151,6 +161,7 @@ router.beforeEach(async (to, from, next) => {
   const coreStore = useCoreStore()
   const authStore = useAuthStore()
 
+  console.log('BeforeEach store loading:', coreStore.isGlobalLoading)
   // Start global loading
   coreStore.setGlobalLoading(true)
 
@@ -158,7 +169,6 @@ router.beforeEach(async (to, from, next) => {
 
   // If already authenticated, proceed
   if (authStore.isAuthenticated) {
-    coreStore.setGlobalLoading(false)
     return next()
   }
 
@@ -166,32 +176,30 @@ router.beforeEach(async (to, from, next) => {
 
   // If there's a token, try to authenticate
   if (token) {
-    try {
-      // const user = await authenticateUserFromToken(token)
-      // if (user) {
-      //   usersStore.getPlayerProfile(user.id)
-      //   usersStore.login(user)
-      // } else {
-      //   localStorage.removeItem('token')
-      // }
-    } catch (error) {
-      console.log(`Error authenticating, removing token: ${error}`)
+    const success = await authStore.authenticateFromToken()
+    if (success) {
+      return next()
+    } else {
       localStorage.removeItem('token')
+      return next({ name: 'login', query: { next: to.fullPath } })
     }
   }
 
   // Redirect to home if authentication is required and user is not authenticated
   if (to.meta.requiresAuth && !authStore.isAuthenticated) {
-    coreStore.setGlobalLoading(false)
     return next({
       name: 'login',
       query: { next: to.fullPath },
     })
   }
 
-  // Stop global loading before navigating
-  coreStore.setGlobalLoading(false)
   next()
+})
+
+router.afterEach(() => {
+  const coreStore = useCoreStore()
+  console.log('AfterEach store loading:', coreStore.isGlobalLoading)
+  coreStore.setGlobalLoading(false)
 })
 
 export default router

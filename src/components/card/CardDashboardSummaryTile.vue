@@ -18,15 +18,15 @@ const props = defineProps({
     required: false,
   },
   value: {
-    type: String,
+    type: Number,
     required: true,
   },
   labelBadge: {
-    type: String,
+    type: Number,
     required: false,
   },
   labelFooter: {
-    type: String,
+    type: Number,
     required: false,
   },
 })
@@ -40,7 +40,7 @@ const iconMap: Record<string, Component> = {
 </script>
 
 <template>
-  <div class="card grow p-4 bg-base-100">
+  <div class="card grow p-4 bg-base-100 rounded">
     <div class="flex">
       <div class="flex flex-col gap-4 grow">
         <span class="">{{ props.label }}</span>
@@ -57,7 +57,7 @@ const iconMap: Record<string, Component> = {
       </div>
     </div>
     <div>
-      <span class="text-xs">{{ props.labelFooter }}</span>
+      <span class="text-xs text-base-content/40">vs {{ props.labelFooter }} last period</span>
     </div>
   </div>
 </template>

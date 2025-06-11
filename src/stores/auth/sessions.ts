@@ -1,12 +1,8 @@
-import { defineStore } from 'pinia'
 import { ref, watch } from 'vue'
+import { defineStore } from 'pinia'
 
 // Api
-import { fetchAddresses } from '@/api/geo/addresses'
-
-// Interfaces
-import type { IAddress } from '@/interfaces/geo/IAddress'
-import type { ITableField } from '@/interfaces/table/ITable'
+import { fetchSessions } from '@/api/auth/sessions'
 
 // Composables
 import { usePagination } from '@/composables/usePagination'
@@ -14,9 +10,13 @@ import { useSorting } from '@/composables/table/useSorting'
 import { useSelection } from '@/composables/table/useSelection'
 import { useFiltering } from '@/composables/table/useFiltering'
 
-export const useAddressesStore = defineStore('addresses', () => {
+// Interfaces
+import type { ISession } from '@/interfaces/auth/ISession'
+import type { ITableField } from '@/interfaces/table/ITable'
+
+export const useSessionsStore = defineStore('sessions', () => {
   const isLoading = ref(false)
-  const data = ref<IAddress[]>([])
+  const data = ref<ISession[]>([])
   const { page, size, count, totalPages, nextPage, prevPage, setPage, setSize, setCount } =
     usePagination(1, 10)
 
@@ -30,7 +30,7 @@ export const useAddressesStore = defineStore('addresses', () => {
     setFilterValue,
   } = useFiltering(data, null, '')
 
-  const { sortedData, sortKey, sortOrder, setSort, clearSort } = useSorting<IAddress>(
+  const { sortedData, sortKey, sortOrder, setSort, clearSort } = useSorting<ISession>(
     filteredData,
     'id',
     'asc',
@@ -47,12 +47,18 @@ export const useAddressesStore = defineStore('addresses', () => {
     toggleSelectAll,
     countSelected,
     selectionConstructedMessage,
-  } = useSelection<IAddress>(data, 'id')
+  } = useSelection<ISession>(data, 'id')
 
   const fields = ref<ITableField[]>([
     { key: 'id', label: 'Id', type: 'text', isSortable: true, isPrimary: true },
-    { key: 'number', label: 'Number', type: 'text', isSortable: true },
-    { key: 'street', label: 'Street', type: 'text', isSortable: true },
+    { key: 'ip_v4', label: 'IP v4', type: 'text', isSortable: true },
+    { key: 'ip_v6', label: 'IP v6', type: 'text', isSortable: true },
+    { key: 'ip_type', label: 'IP Type', type: 'text', isSortable: true },
+    { key: 'ip_class', label: 'IP Class', type: 'text', isSortable: true },
+    { key: 'isp', label: 'ISP', type: 'text', isSortable: true },
+    { key: 'user_agent', label: 'User Agent', type: 'text', isSortable: true },
+    { key: 'created_at', label: 'Created at', type: 'text', isSortable: true },
+    { key: 'user', label: 'User', type: 'text', isSortable: true },
   ])
 
   function toggleLoading() {
@@ -62,7 +68,7 @@ export const useAddressesStore = defineStore('addresses', () => {
   async function load() {
     toggleLoading()
     try {
-      const response = await fetchAddresses({ page: page.value, size: size.value })
+      const response = await fetchSessions({ page: page.value, size: size.value })
       if (!response) return
       data.value = response.data
       count.value = response.count

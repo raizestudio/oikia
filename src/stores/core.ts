@@ -35,52 +35,55 @@ function buildMenuTree(flat: IMenu[]) {
   return tree
 }
 
-export const useCoreStore = defineStore('core', () => {
-  const isGlobalLoading = ref(true)
-  const isLoading = ref(true)
-  const isSidebarOpen = ref(false)
-  const menus = ref<IMenu[]>([])
-  const menuTree = ref<(IMenu & { children: IMenuWithChildren[] })[]>([])
+export const useCoreStore = defineStore('core', {
+  state: () => ({
+    isGlobalLoading: false,
+    isLoading: true,
+    isSidebarOpen: false,
+    menus: [] as IMenu[],
+    menuTree: [] as (IMenu & { children: IMenuWithChildren[] })[],
+    currentMenu: -1,
+    currentSubMenu: -1,
+  }),
 
-  const toggleSidebar = () => {
-    isSidebarOpen.value = !isSidebarOpen.value
-    localStorage.setItem('isSidebarOpen', isSidebarOpen.value.toString())
-  }
+  actions: {
+    toggleSidebar() {
+      this.isSidebarOpen = !this.isSidebarOpen
+      localStorage.setItem('isSidebarOpen', this.isSidebarOpen.toString())
+    },
 
-  const checkSidebarLocalStorage = () => {
-    const storedValue = localStorage.getItem('isSidebarOpen')
-    if (storedValue !== null) {
-      isSidebarOpen.value = storedValue === 'true'
-    } else {
-      isSidebarOpen.value = true // Default to open if not set
-    }
-  }
+    checkSidebarLocalStorage() {
+      const storedValue = localStorage.getItem('isSidebarOpen')
+      if (storedValue !== null) {
+        this.isSidebarOpen = storedValue === 'true'
+      } else {
+        this.isSidebarOpen = true
+      }
+    },
 
-  function setMenus() {
-    fetchMenus().then((data) => {
-      menus.value = data || []
-      menuTree.value = buildMenuTree(menus.value)
-    })
-  }
+    async setMenus() {
+      if (this.menus.length > 0) {
+        return
+      }
+      const data = await fetchMenus()
+      this.menus = data || []
+      this.menuTree = buildMenuTree(this.menus)
+    },
 
-  function setGlobalLoading(loading: boolean) {
-    isGlobalLoading.value = loading
-  }
+    setGlobalLoading(loading: boolean) {
+      this.isGlobalLoading = loading
+    },
 
-  function setLoading(loading: boolean) {
-    isLoading.value = loading
-  }
+    setLoading(loading: boolean) {
+      this.isLoading = loading
+    },
 
-  return {
-    isGlobalLoading,
-    isLoading,
-    isSidebarOpen,
-    menus,
-    menuTree,
-    toggleSidebar,
-    checkSidebarLocalStorage,
-    setMenus,
-    setGlobalLoading,
-    setLoading,
-  }
+    toggleMenu(menuId: number) {
+      this.currentMenu = this.currentMenu === menuId ? -1 : menuId
+    },
+
+    toggleSubMenu(subMenuId: number) {
+      this.currentSubMenu = this.currentSubMenu === subMenuId ? -1 : subMenuId
+    },
+  },
 })

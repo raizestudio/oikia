@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 
 // Api
 import { getIPInfo } from '@/api/ipInfo'
-import { createSessionIpInfo, authenticateUser } from '@/api/auth/auth'
+import { createSessionIpInfo, authenticateUser, authenticateUserFromToken } from '@/api/auth/auth'
 
 // Interfaces
 import type { ISession } from '@/interfaces/auth/ISession'
@@ -54,5 +54,41 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  return { isAuthenticated, session, user, token, refreshToken, setIPInfo, authenticate }
+  async function authenticateFromToken() {
+    const isDemo = import.meta.env.VITE_IS_DEMO === 'true'
+    if (isDemo) {
+      console.warn('Demo mode is enabled. Authentication from token will not proceed.')
+      isAuthenticated.value = true
+      return true
+    }
+    try {
+      const authInfo = await authenticateUserFromToken(token.value as string)
+
+      if (authInfo) {
+        console.log(`Authentication from token successful for user: ${authInfo.user.email}`)
+        user.value = authInfo.user
+        isAuthenticated.value = true
+        return true
+      } else {
+        isAuthenticated.value = false
+        user.value = null
+        return false
+      }
+    } catch (err) {
+      console.error('Authentication from token error:', err)
+      isAuthenticated.value = false
+      user.value = null
+      return false
+    }
+  }
+  return {
+    isAuthenticated,
+    session,
+    user,
+    token,
+    refreshToken,
+    setIPInfo,
+    authenticate,
+    authenticateFromToken,
+  }
 })

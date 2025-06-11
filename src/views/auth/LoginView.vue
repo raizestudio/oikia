@@ -68,7 +68,7 @@ const validatePassword = (value: unknown) => {
 <template>
   <div class="flex justify-center items-center h-full">
     <div class="flex flex-col gap-2">
-      <div class="alert bg-info/80 shadow-none">
+      <div v-if="isDemo" class="alert bg-info/80 shadow-none">
         <IconInfo class="w-6 h-6" />
         <span>User: demo / Passwd: demo</span>
       </div>
@@ -101,7 +101,7 @@ const validatePassword = (value: unknown) => {
                   type="password"
                 />
                 <span class="text-xs text-error/60">{{ errorMessage }}</span>
-                <span class="text-sm">Hint: Enter a secure password you can remember</span>
+                <!-- <span class="text-sm">Hint: Enter a secure password you can remember</span> -->
               </Field>
             </div>
           </div>
